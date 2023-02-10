@@ -1,0 +1,13 @@
+identifier:        FancyCorp-Demo/terraform-version-check
+
+description: Checks for TFC Workspaces running old versions of Terraform
+
+tags:
+- admin
+
+creds: tfc
+
+project: Admin
+
+# This workspace is safe to delete without a destroy
+force_delete: true

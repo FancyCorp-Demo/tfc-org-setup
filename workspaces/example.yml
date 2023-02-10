@@ -1,0 +1,44 @@
+# Repository Details
+branch:            # default: main
+working_directory: # default unset
+identifier:        # default: FancyCorp-Demo/tfcb-setup, i.e. https://github.com/FancyCorp-Demo/tfcb-setup/
+
+# Sentinel Policy Sets
+# Enable by setting to true
+# https://github.com/hashi-strawb/se-onboarding-sentinel/tree/main/test
+test:
+# https://github.com/hashi-strawb/se-onboarding-sentinel/tree/main/prod
+production:
+# Everything also has mandatory policies:
+# https://github.com/hashi-strawb/tf-sentinel-policies
+
+# Team Settings
+# name of team, and permissions (read, plan, write, admin)
+permissions:
+  tf-fancycorp-devs: write
+
+# Workspace Tags
+tags:
+- platform:gcp    # This one is useful for filtering
+- environment:dev # dev, test, production, etc.
+-                 # other tags can be added as needed
+
+# Which creds do we need? aws, gcp, azure
+creds:
+
+# Define any variables
+vars:
+  - key:
+    value:
+    hcl:         # default: false
+    category:    # env or terraform, default: terraform
+    description:
+    sensitive:   # default: false
+
+
+# Which runtasks should we include?
+tasks:
+  - task:        # snyk, bridgecrew, infracost, packer
+    enforcement: # advisory, mandatory
+
+

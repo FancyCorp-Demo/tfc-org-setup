@@ -1,0 +1,7 @@
+secrets.auto.tfvars
+servicenow.txt
+
+**/.terraform/modules
+**/.terraform/providers
+**/.terraform/environment
+**/.terraform.lock.hcl

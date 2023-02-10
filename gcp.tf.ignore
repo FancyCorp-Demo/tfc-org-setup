@@ -1,0 +1,58 @@
+variable "gcp_project_id" {
+  type = string
+}
+
+provider "google" {
+  project = var.gcp_project_id
+  region  = "europe-west2"
+}
+resource "google_service_account" "tfc" {
+  account_id   = "terraform-cloud"
+  display_name = "Terraform Cloud"
+}
+
+resource "google_project_iam_member" "project" {
+  project = var.gcp_project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:${google_service_account.tfc.email}"
+}
+
+# I'd want to rotate these in Prod
+# per https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_service_account_key#example-usage-creating-and-regularly-rotating-a-key
+#
+# but as Hashi GCP accounts are temporary, it doesn't really matter
+resource "google_service_account_key" "mykey" {
+  service_account_id = google_service_account.tfc.name
+  public_key_type    = "TYPE_X509_PEM_FILE"
+}
+
+locals {
+  gcp_workspaces = {
+    for k, v in local.workspaces : k => v
+    if v.creds == "gcp"
+  }
+}
+
+resource "tfe_variable" "gcp_creds" {
+  for_each = local.gcp_workspaces
+
+  workspace_id = tfe_workspace.workspace[each.key].id
+  key          = "GOOGLE_CREDENTIALS"
+  value        = replace(base64decode(google_service_account_key.mykey.private_key), "\n", "")
+  hcl          = false
+  category     = "env"
+  description  = "GCP Credentials"
+  sensitive    = true
+}
+
+resource "tfe_variable" "gcp_project_id" {
+  for_each = local.gcp_workspaces
+
+  workspace_id = tfe_workspace.workspace[each.key].id
+  key          = "gcp_project_id"
+  value        = var.gcp_project_id
+  hcl          = false
+  category     = "terraform"
+  description  = "GCP Project ID"
+  sensitive    = false
+}

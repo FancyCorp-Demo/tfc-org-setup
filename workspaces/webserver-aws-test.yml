@@ -1,0 +1,29 @@
+# Repository Details
+branch:            test
+working_directory: # default unset
+identifier:        FancyCorp-Demo/tf-workspace-aws-webserver
+
+
+test: true
+permissions:
+  tf-fancycorp-devs: plan
+  tf-fancycorp-test-approvers: write
+tags:
+- webserver
+- platform:aws
+- environment:test
+creds: aws
+vars:
+  - key: instance_type
+    value: t3.nano
+    description: "What size EC2 instance should we use? t3.2xlarge will cause a policy check to fail"
+  - key: packer_bucket_name
+    value: webserver
+    description: Which HCP Packer bucket should we pull our AMI from?
+  - key: packer_channel
+    value: production
+    description: "Which HCP Packer channel should we use for our AMI? Available: production, dev"
+tasks:
+  - task: packer
+    enforcement: advisory
+project: AWS Webservers

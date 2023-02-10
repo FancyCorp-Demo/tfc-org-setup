@@ -1,0 +1,16 @@
+test: true
+permissions:
+  tf-fancycorp-devs: write
+tags:
+- platform:gcp
+- environment:dev
+working_directory: terraform-gcp
+creds: gcp
+vars:
+  - key: machine_type
+    value: e2-micro
+    description: "What size machine should we use? Available sizes: https://cloud.google.com/compute/docs/general-purpose-machines and a e2-standard-4 will trigger a policy failure"
+tasks:
+  - task: packer
+    enforcement: advisory
+

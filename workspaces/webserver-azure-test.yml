@@ -1,0 +1,24 @@
+test: true
+permissions:
+  tf-fancycorp-devs: plan
+  tf-fancycorp-test-approvers: write
+tags:
+- webserver
+- platform:azure
+- environment:test
+working_directory: terraform-azure
+creds: azure
+vars:
+  - key: machine_size
+    value: Standard_B1ls
+    description: "What size machine should we use? Available sizes: https://docs.microsoft.com/en-us/azure/virtual-machines/sizes and Standard_B8ms or Standard_B4ms will trigger policy failures"
+  - key: packer_bucket_name
+    value: webserver
+    description: Which HCP Packer bucket should we pull our Machine Image from?
+  - key: packer_channel
+    value: production
+    description: "Which HCP Packer channel should we use for our Machine Image? Available: production, dev"
+tasks:
+  - task: packer
+    enforcement: advisory
+project: Azure Webservers
