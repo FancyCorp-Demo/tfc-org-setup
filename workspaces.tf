@@ -145,8 +145,11 @@ resource "multispace_run" "destroy_workspaces" {
     tfe_workspace.workspace,
     tfe_variable.test,
 
+    # Creds
     module.azure-creds,
     module.aws-creds,
+    tfe_workspace_variable_set.hcp_viewer,
+    tfe_variable.tfc-creds,
 
     tfe_workspace_run_task.tasks,
 
