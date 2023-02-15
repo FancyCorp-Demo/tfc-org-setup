@@ -5,7 +5,8 @@ tags:
 - platform:gcp
 - environment:dev
 working_directory: terraform-gcp
-creds: gcp
+creds:
+- gcp
 vars:
   - key: machine_type
     value: e2-micro

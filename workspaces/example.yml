@@ -25,6 +25,7 @@ tags:
 
 # Which creds do we need? aws, gcp, azure
 creds:
+- 
 
 # Define any variables
 vars:

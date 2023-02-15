@@ -25,7 +25,7 @@ module "aws-oidc-provider" {
 locals {
   aws_workspaces = {
     for k, v in local.workspaces : k => v
-    if v.creds == "aws"
+    if contains(v.creds, "aws")
   }
 }
 

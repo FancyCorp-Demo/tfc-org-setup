@@ -9,7 +9,9 @@ tags:
 - webserver
 - platform:aws
 - environment:dev
-creds: aws
+creds:
+- aws
+- hcp:viewer
 vars:
   - key: instance_type
     value: t3.nano

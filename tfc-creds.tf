@@ -40,7 +40,7 @@ resource "tfe_variable" "tfc-creds" {
 locals {
   tfc_creds_workspace_ids = {
     for name, resource in tfe_workspace.workspace : name => resource.id
-    if local.workspaces[name].creds == "tfc"
+    if contains(local.workspaces[name].creds, "tfc")
   }
 }
 

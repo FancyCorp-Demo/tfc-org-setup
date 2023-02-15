@@ -12,7 +12,9 @@ tags:
 - webserver
 - platform:aws
 - environment:test
-creds: aws
+creds:
+- aws
+- hcp:viewer
 vars:
   - key: instance_type
     value: t3.nano

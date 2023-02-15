@@ -7,7 +7,7 @@ locals {
   azure_workspace_ids = [
     for workspace_id in {
       for name, resource in tfe_workspace.workspace : name => resource.id
-      if local.workspaces[name].creds == "azure"
+      if contains(local.workspaces[name].creds, "azure")
     } : workspace_id
   ]
 

@@ -5,7 +5,9 @@ tags:
 - platform:azure
 - environment:dev
 working_directory: terraform-azure
-creds: azure
+creds:
+- azure
+- hcp:viewer
 vars:
   - key: machine_size
     value: Standard_B1ls
