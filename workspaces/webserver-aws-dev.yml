@@ -25,4 +25,4 @@ vars:
 tasks:
   - task: packer
     enforcement: advisory
-project: AWS Webservers
+project: FancyCats Dev

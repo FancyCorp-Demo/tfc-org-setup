@@ -1,0 +1,13 @@
+# Repository Details
+identifier:        FancyCorp-Demo/nocode-creds-bootstrap
+
+permissions:
+  tf-nocode-devs: write
+
+creds:
+- aws
+- tfc
+
+project: AWS No-Code
+
+auto_apply: true

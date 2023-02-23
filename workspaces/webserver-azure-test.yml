@@ -23,4 +23,4 @@ vars:
 tasks:
   - task: packer
     enforcement: advisory
-project: Azure Webservers
+project: FancyCats Test

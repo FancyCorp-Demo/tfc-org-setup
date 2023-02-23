@@ -47,8 +47,11 @@ resource "tfe_workspace" "workspace" {
   )
 
 
-  # TODO: set this to true just before destroying
-  # auto_apply = true
+  auto_apply = lookup(
+    each.value,
+    "auto_apply",
+    false
+  )
 
 
   # get project ID based on name, if set, or default project if not

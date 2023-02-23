@@ -1,0 +1,14 @@
+# Repository Details
+identifier:        FancyCorp-Demo/nocode-creds-bootstrap
+
+permissions:
+  tf-nocode-devs: write
+
+creds:
+- azure
+- tfc
+
+project: Azure No-Code
+
+auto_apply: true
+
