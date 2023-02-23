@@ -43,3 +43,8 @@ tasks:
     enforcement: # advisory, mandatory
 
 
+# Whether or not applies on this workspace should be automatic (vs wait for a human approval)
+#auto_apply: true
+
+# Whether we should always automatically kick off a run on this workspace after creation
+#auto_trigger: true

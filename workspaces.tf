@@ -1,3 +1,57 @@
+
+# terraform apply -var="trigger_workspaces=true"
+variable "trigger_workspaces" {
+  type    = bool
+  default = false
+}
+# terraform apply -var="trigger_workspaces_destroy=true"
+variable "trigger_workspaces_destroy" {
+  type    = bool
+  default = false
+}
+
+
+# WIP: Dynamic TF Config
+locals {
+  # Find all YAML files in the workspaces dir
+  workspace_files = setsubtract(
+    fileset(path.module, "workspaces/*.yml"),
+    ["workspaces/example.yml"]
+  )
+
+  # Parse them all
+  workspace_files_decoded = {
+    for filename in local.workspace_files :
+    trimsuffix(basename(filename), ".yml") =>
+    merge(
+      {
+        # Default values when not specified in the YAML files
+        creds       = "",
+        permissions = [],
+      },
+      yamldecode(file(filename)),
+    )
+  }
+
+  workspaces      = local.workspace_files_decoded
+  null_workspaces = tomap({})
+
+
+  workspace_names = toset([
+    for k, v in local.workspaces : k
+  ])
+
+  workspace_names_always_trigger = toset([
+    for k, v in local.workspaces : k
+    if lookup(v, "auto_trigger", false)
+
+
+  ])
+}
+
+
+
+
 data "tfe_organization" "org" {
   name = var.tfe_org
 }
@@ -97,7 +151,7 @@ locals {
 # Now that creds have been pushed, we can trigger a run
 resource "multispace_run" "trigger_workspaces" {
   # If we are triggering a run, there should be some multispace_run.trigger_workspaces workspaces
-  for_each = var.trigger_workspaces ? local.workspace_names : local.null_workspace_names
+  for_each = var.trigger_workspaces ? local.workspace_names : local.workspace_names_always_trigger
 
   # TODO: See all of this? This is why we need a "create workspace" submodule
   depends_on = [
@@ -141,7 +195,10 @@ resource "multispace_run" "destroy_workspaces" {
   #
   # This allows us to explicitly trigger a destroy by setting the trigger_workspaces_destroy variable
   # or to destroy everything with a simple terraform destroy
-  for_each = var.trigger_workspaces_destroy ? local.null_workspace_names : local.workspace_names
+  for_each = var.trigger_workspaces_destroy ? local.workspace_names_always_trigger : local.workspace_names
+  # TODO: I don't think we need this anymore. We don'y really use make apply-destroy anymore,
+  # and it's no longer a dependency of make destroy. So this for_each probably should just always use
+  # local.workspace_names
 
   # TODO: See all of this? This is why we need a "create workspace" submodule
   depends_on = [

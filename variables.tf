@@ -1,13 +1,3 @@
-# terraform apply -var="trigger_workspaces=true"
-variable "trigger_workspaces" {
-  type    = bool
-  default = false
-}
-# terraform apply -var="trigger_workspaces_destroy=true"
-variable "trigger_workspaces_destroy" {
-  type    = bool
-  default = false
-}
 
 
 variable "slack_webhook" {
@@ -23,38 +13,6 @@ variable "tfe_org" {
 
 
 
-
-# WIP: Dynamic TF Config
-locals {
-  # Find all YAML files in the workspaces dir
-  workspace_files = setsubtract(
-    fileset(path.module, "workspaces/*.yml"),
-    ["workspaces/example.yml"]
-  )
-
-  # Parse them all
-  workspace_files_decoded = {
-    for filename in local.workspace_files :
-    trimsuffix(basename(filename), ".yml") =>
-    merge(
-      {
-        # Default values when not specified in the YAML files
-        creds       = "",
-        permissions = [],
-      },
-      yamldecode(file(filename)),
-    )
-  }
-
-  workspaces      = local.workspace_files_decoded
-  null_workspaces = tomap({})
-
-
-  workspace_names = toset([
-    for k, v in local.workspaces : k
-  ])
-  null_workspace_names = toset([])
-}
 
 
 

@@ -11,4 +11,4 @@ creds:
 project: Azure No-Code
 
 auto_apply: true
-
+auto_trigger: true
