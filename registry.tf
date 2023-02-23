@@ -60,3 +60,22 @@ resource "tfe_registry_module" "private-modules" {
     oauth_token_id     = var.vcs_oauth_github
   }
 }
+
+
+locals {
+  private_nocode_modules = [
+    "FancyCorp-Demo/terraform-aws-webserver-nocode",
+  ]
+}
+
+resource "tfe_registry_module" "private-nocode-modules" {
+  for_each = toset(local.private_nocode_modules)
+
+  vcs_repo {
+    display_identifier = each.key
+    identifier         = each.key
+    oauth_token_id     = var.vcs_oauth_github
+  }
+
+  no_code = true
+}
