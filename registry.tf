@@ -65,6 +65,7 @@ resource "tfe_registry_module" "private-modules" {
 locals {
   private_nocode_modules = [
     "FancyCorp-Demo/terraform-aws-webserver-nocode",
+    "FancyCorp-Demo/terraform-azure-webserver-nocode",
   ]
 }
 

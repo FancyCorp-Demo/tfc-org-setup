@@ -1,3 +1,4 @@
+identifier:        FancyCorp-Demo/tf-workspace-azure-webserver
 test: true
 permissions:
   tf-fancycorp-devs: plan
@@ -6,7 +7,6 @@ tags:
 - webserver
 - platform:azure
 - environment:test
-working_directory: terraform-azure
 creds:
 - azure
 - hcp:viewer

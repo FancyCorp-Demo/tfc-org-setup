@@ -1,10 +1,10 @@
+identifier:        FancyCorp-Demo/tf-workspace-azure-webserver
 permissions:
   tf-fancycorp-devs: write
 tags:
 - webserver
 - platform:azure
 - environment:dev
-working_directory: terraform-azure
 creds:
 - azure
 - hcp:viewer
