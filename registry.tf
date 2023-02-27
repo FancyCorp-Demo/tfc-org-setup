@@ -45,7 +45,7 @@ resource "tfe_registry_module" "public-modules" {
 locals {
   private_modules = [
     "FancyCorp-Demo/terraform-aws-webserver",
-    "hashi-strawb/terraform-azure-webserver",
+    "FancyCorp-Demo/terraform-azure-webserver",
     "hashi-strawb/terraform-aws-account-numbers",
   ]
 }

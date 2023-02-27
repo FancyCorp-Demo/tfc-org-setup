@@ -26,8 +26,7 @@ resource "tfe_policy_set" "test-workspaces" {
   organization = var.tfe_org
 
   vcs_repo {
-    # TODO: rename the repo
-    identifier         = "hashi-strawb/se-onboarding-sentinel"
+    identifier         = "FancyCorp-Demo/sentinel-policies"
     branch             = "main"
     ingress_submodules = false
     oauth_token_id     = var.vcs_oauth_github
@@ -49,7 +48,7 @@ resource "tfe_policy_set" "prod-workspaces" {
   organization = var.tfe_org
 
   vcs_repo {
-    identifier         = "hashi-strawb/se-onboarding-sentinel"
+    identifier         = "FancyCorp-Demo/sentinel-policies"
     branch             = "main"
     ingress_submodules = false
     oauth_token_id     = var.vcs_oauth_github
