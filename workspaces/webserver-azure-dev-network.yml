@@ -1,0 +1,23 @@
+identifier:        FancyCorp-Demo/tf-workspace-azure-webserver
+working_directory: "split/network"
+branch:            "combined-vs-split"
+
+permissions:
+  tf-fancycorp-devs: write
+tags:
+- webserver
+- platform:azure
+- environment:dev
+- component:network
+creds:
+- azure
+- hcp:viewer
+project: FancyCats Dev
+
+# Allow other workspaces to use this workspace's 
+global_remote_state: true
+
+# TODO
+# downstream_workspaces
+# - webserver-azure-dev-compute
+# Or maybe this could be computed from the upstream_workspaces on the target workspaces

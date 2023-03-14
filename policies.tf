@@ -1,3 +1,34 @@
+# Identify workspaces on which to apply policy sets
+# TODO: in future, do something like:
+# policy_sets:
+# - production
+# - test
+
+locals {
+  workspace_ids = [
+    for v in tfe_workspace.workspace : v.id
+  ]
+
+  # Identify all Production workspaces
+  prod_workspace_resources = {
+    for k, v in tfe_workspace.workspace : k => v.id
+    if lookup(local.workspaces[k], "production", false)
+  }
+  prod_workspace_ids = [
+    for v in local.prod_workspace_resources : v
+  ]
+
+  # Identify all Test workspaces
+  test_workspace_resources = {
+    for k, v in tfe_workspace.workspace : k => v.id
+    if lookup(local.workspaces[k], "test", false)
+  }
+  test_workspace_ids = [
+    for v in local.test_workspace_resources : v
+  ]
+
+}
+
 
 #
 # Sentinel Policies

@@ -16,7 +16,7 @@ resource "tfe_notification_configuration" "slack" {
 }
 */
 
-
+# TODO: the provider DOES support this now!
 resource "terracurl_request" "health_check_notifications" {
   for_each = local.workspaces
 

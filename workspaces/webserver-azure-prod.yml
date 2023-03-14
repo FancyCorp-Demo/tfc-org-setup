@@ -1,4 +1,7 @@
 identifier:        FancyCorp-Demo/tf-workspace-azure-webserver
+#working_directory: "combined"
+#branch:            "combined-vs-split"
+
 production: true
 permissions:
   tf-fancycorp-prod-devs: plan

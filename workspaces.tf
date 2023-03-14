@@ -114,33 +114,55 @@ resource "tfe_workspace" "workspace" {
     data.tfe_organization.org.default_project_id
   )
 
+
+  # Allow all other workspaces to access this workspace's outputs
+  # TODO: see if we can do something with remote_state_consumer_ids in future
+  global_remote_state = lookup(
+    each.value,
+    "global_remote_state",
+    false
+  )
+
 }
 
+
+#
+# Run Triggers
+#
 
 locals {
-  workspace_ids = [
-    for v in tfe_workspace.workspace : v.id
-  ]
-
-  # Identify all Production workspaces
-  prod_workspace_resources = {
-    for k, v in tfe_workspace.workspace : k => v.id
-    if lookup(local.workspaces[k], "production", false)
+  # Find any workspaces which declare any upstream workspaces
+  # returns a map from downstream:[upstreams]
+  workspaces_with_upstreams = {
+    for k, v in local.workspaces : k => v.upstream_workspaces
+    if can(v.upstream_workspaces)
   }
-  prod_workspace_ids = [
-    for v in local.prod_workspace_resources : v
-  ]
 
-  # Identify all Test workspaces
-  test_workspace_resources = {
-    for k, v in tfe_workspace.workspace : k => v.id
-    if lookup(local.workspaces[k], "test", false)
+  # Now convert this into an list of unique downstream/upstream pairs
+  workspaces_upstream_to_downstream = flatten([
+    for downstream, upstreams in local.workspaces_with_upstreams : [
+      for upstream in upstreams :
+      {
+        downstream : downstream,
+        upstream : upstream,
+      }
+    ]
+  ])
+
+  # Finally... we need a key for this, so we can for_each over it
+  workspaces_upstream_to_downstream_map = {
+    for index, ud in local.workspaces_upstream_to_downstream :
+    "up:${ud.upstream};down:${ud.downstream}" => ud
   }
-  test_workspace_ids = [
-    for v in local.test_workspace_resources : v
-  ]
-
 }
+
+resource "tfe_run_trigger" "run_trigger" {
+  for_each      = local.workspaces_upstream_to_downstream_map
+  workspace_id  = tfe_workspace.workspace[each.value.downstream].id
+  sourceable_id = tfe_workspace.workspace[each.value.upstream].id
+}
+
+
 
 
 #
