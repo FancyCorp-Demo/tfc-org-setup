@@ -9,6 +9,11 @@ resource "tfe_team" "manage-workspaces" {
   organization = var.tfe_org
   organization_access {
     manage_workspaces = true
+
+
+    # Workaround for a bug
+    # TODO: Remove once the bug is fixed
+    manage_policies = true
   }
 }
 
