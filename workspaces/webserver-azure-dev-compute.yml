@@ -30,4 +30,6 @@ upstream_workspaces:
 tasks:
   - task: packer
     enforcement: advisory
+  - task: snyk
+    enforcement: advisory
 project: FancyCats Dev

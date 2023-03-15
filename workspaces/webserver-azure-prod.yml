@@ -1,6 +1,6 @@
 identifier:        FancyCorp-Demo/tf-workspace-azure-webserver
 #working_directory: "combined"
-#branch:            "combined-vs-split"
+branch:            "main"
 
 production: true
 permissions:
@@ -25,5 +25,7 @@ vars:
     description: "Which HCP Packer channel should we use for our Machine Image? Available: production, dev"
 tasks:
   - task: packer
+    enforcement: advisory
+  - task: snyk
     enforcement: advisory
 project: FancyCats Prod

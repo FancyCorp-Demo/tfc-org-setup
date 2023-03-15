@@ -28,4 +28,6 @@ vars:
 tasks:
   - task: packer
     enforcement: advisory
+  - task: snyk
+    enforcement: advisory
 project: FancyCats Test

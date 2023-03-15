@@ -12,6 +12,9 @@ tags:
 creds:
 - azure
 - hcp:viewer
+tasks:
+  - task: snyk
+    enforcement: advisory
 project: FancyCats Dev
 
 # Allow other workspaces to use this workspace's 
