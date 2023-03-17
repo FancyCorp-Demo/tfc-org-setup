@@ -32,4 +32,6 @@ tasks:
     enforcement: advisory
   - task: snyk
     enforcement: advisory
+  - task: infracost
+    enforcement: advisory
 project: FancyCats Dev
