@@ -41,11 +41,14 @@ locals {
     for k, v in local.workspaces : k
   ])
 
+  workspace_names_sometimes_trigger = toset([
+    for k, v in local.workspaces : k
+    if !can(v.upstream_workspaces)
+  ])
+
   workspace_names_always_trigger = toset([
     for k, v in local.workspaces : k
     if lookup(v, "auto_trigger", false)
-
-
   ])
 }
 
@@ -173,7 +176,7 @@ resource "tfe_run_trigger" "run_trigger" {
 # Now that creds have been pushed, we can trigger a run
 resource "multispace_run" "trigger_workspaces" {
   # If we are triggering a run, there should be some multispace_run.trigger_workspaces workspaces
-  for_each = var.trigger_workspaces ? local.workspace_names : local.workspace_names_always_trigger
+  for_each = var.trigger_workspaces ? local.workspace_names_sometimes_trigger : local.workspace_names_always_trigger
 
   # TODO: See all of this? This is why we need a "create workspace" submodule
   depends_on = [
