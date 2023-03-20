@@ -51,6 +51,24 @@ resource "tfe_policy_set" "all-workspaces" {
   # workspace_ids = local.workspace_ids
 }
 
+resource "tfe_policy_set" "public-registry" {
+  name         = "public-registry"
+  description  = "Policies from the Public Registry"
+  organization = var.tfe_org
+
+  vcs_repo {
+    identifier         = "FancyCorp-Demo/sentinel-policies"
+    branch             = "main"
+    ingress_submodules = false
+    oauth_token_id     = var.vcs_oauth_github
+  }
+  policies_path = "public"
+
+  global = true
+  # If I'm using the org for other things at the same time...
+  # workspace_ids = local.workspace_ids
+}
+
 resource "tfe_policy_set" "test-workspaces" {
   name         = "test-policies"
   description  = "Test Demo Policies: Soft Mandatory"
