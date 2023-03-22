@@ -1,0 +1,7 @@
+{
+    "name": "terraform-codespaces",
+    "extensions": [
+        "hashicorp.terraform",
+    ],
+    "postCreateCommand": "/bin/bash ./.devcontainer/post-install.sh"
+}
