@@ -8,7 +8,7 @@ creds:
 - azure
 - tfc
 
-project: Azure No-Code
+project: Admin
 
 auto_apply: true
 auto_trigger: true

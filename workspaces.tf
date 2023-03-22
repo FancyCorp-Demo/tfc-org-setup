@@ -250,6 +250,7 @@ resource "multispace_run" "destroy_workspaces" {
     tfe_policy_set_parameter.org-test,
     tfe_policy_set.prod-workspaces,
     tfe_policy_set_parameter.org-prod,
+    tfe_policy_set.public-registry,
   ]
 
   organization = var.tfe_org

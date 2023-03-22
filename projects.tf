@@ -3,8 +3,8 @@
 #
 
 locals {
-  # List of distinct projects
-  projects = toset(
+  # List of distinct projects in workspaces
+  workspace_projects = toset(
     distinct(
       flatten(
         [
@@ -14,6 +14,16 @@ locals {
         ]
       )
     )
+  )
+
+  other_projects = [
+    "AWS No-Code",
+    "Azure No-Code",
+  ]
+
+  projects = setunion(
+    local.workspace_projects,
+    local.other_projects,
   )
 
 }

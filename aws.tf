@@ -42,3 +42,7 @@ module "aws-creds" {
   tfc_workspace_id      = tfe_workspace.workspace[each.key].id
   tfc_workspace_project = each.value.project
 }
+
+// TODO: Create Project-Level AWS Creds
+// TODO: Create Project-Level AWS Creds VarSet
+// maybe do that in https://github.com/FancyCorp-Demo/nocode-creds-bootstrap

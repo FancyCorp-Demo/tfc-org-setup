@@ -8,7 +8,7 @@ creds:
 - aws
 - tfc
 
-project: AWS No-Code
+project: Admin
 
 auto_apply: true
 auto_trigger: true
