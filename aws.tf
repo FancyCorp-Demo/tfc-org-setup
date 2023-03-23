@@ -43,6 +43,29 @@ module "aws-creds" {
   tfc_workspace_project = each.value.project
 }
 
-// TODO: Create Project-Level AWS Creds
-// TODO: Create Project-Level AWS Creds VarSet
-// maybe do that in https://github.com/FancyCorp-Demo/nocode-creds-bootstrap
+
+
+// TODO: In future, do this in a workspace within the org
+// Workspace should create the Project, the creds,
+// and should also create a "Delete" resource for any workspaces in the project
+
+locals {
+  aws_projects = {
+    "AWS No-Code" : tfe_project.projects["AWS No-Code"].id
+  }
+}
+
+module "aws-project-creds" {
+  #source = "hashi-strawb/tfc-dynamic-creds-project/aws"
+  source = "./submodules/project-aws-creds"
+
+  # TODO: for_each this in future
+
+  oidc_provider_arn = module.aws-oidc-provider.oidc_provider.arn
+
+  tfc_organization_name = var.tfe_org
+  tfc_project_name      = "AWS No-Code"
+  tfc_project_id        = tfe_project.projects["AWS No-Code"].id
+
+  tfc_token = local.tfc_token
+}
