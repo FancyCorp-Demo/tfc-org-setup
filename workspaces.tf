@@ -131,6 +131,13 @@ resource "tfe_workspace" "workspace" {
 
   source_name = "TFE Provider"
   source_url  = each.value.file_github_url
+
+  lifecycle {
+    ignore_changes = [
+      source_name,
+      source_url,
+    ]
+  }
 }
 
 
