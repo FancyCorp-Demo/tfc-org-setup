@@ -28,6 +28,9 @@ locals {
         # Default values when not specified in the YAML files
         creds       = "",
         permissions = [],
+
+        filename        = filename,
+        file_github_url = "https://github.com/FancyCorp-Demo/tfc-org-setup/blob/main/${filename}"
       },
       yamldecode(file(filename)),
     )
@@ -70,7 +73,6 @@ resource "tfe_workspace" "workspace" {
     ""
   )
 
-  organization = var.tfe_org
   tag_names = lookup(each.value,
     "tags",
   [])
@@ -126,6 +128,9 @@ resource "tfe_workspace" "workspace" {
     false
   )
 
+
+  source_name = "TFE Provider"
+  source_url  = each.value.file_github_url
 }
 
 
