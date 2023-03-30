@@ -15,7 +15,9 @@ locals {
 }
 
 module "azure-creds" {
-  source = "./submodules/workspace-azure-creds"
+
+  source  = "hashi-strawb/tfc-dynamic-creds-workspace/azure"
+  version = "0.1.0"
 
   for_each = local.azure_workspaces
 
