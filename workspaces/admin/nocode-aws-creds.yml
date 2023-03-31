@@ -4,6 +4,9 @@ identifier:        FancyCorp-Demo/nocode-creds-bootstrap
 permissions:
   tf-nocode-devs: write
 
+tags:
+- admin
+
 creds:
 - aws
 - tfc
