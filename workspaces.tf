@@ -128,6 +128,13 @@ resource "tfe_workspace" "workspace" {
   )
 
 
+  assessments_enabled = lookup(
+    each.value,
+    "assessments_enabled",
+    false
+  )
+
+
   source_name = "TFE Provider"
   source_url  = each.value.file_github_url
 

@@ -12,3 +12,4 @@ project: Admin
 
 auto_apply: true
 auto_trigger: true
+assessments_enabled: true
