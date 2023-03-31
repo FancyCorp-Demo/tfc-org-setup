@@ -10,12 +10,11 @@ variable "trigger_workspaces_destroy" {
   default = false
 }
 
-
 # WIP: Dynamic TF Config
 locals {
   # Find all YAML files in the workspaces dir
   workspace_files = setsubtract(
-    fileset(path.module, "workspaces/*.yml"),
+    fileset("${path.module}", "workspaces/**/*{yml,yaml}"),
     ["workspaces/example.yml"]
   )
 
