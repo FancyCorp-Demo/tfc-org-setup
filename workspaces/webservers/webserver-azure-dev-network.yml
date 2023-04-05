@@ -19,7 +19,7 @@ tasks:
     enforcement: advisory
 project: Webserver Dev
 
-# Allow other workspaces to use this workspace's 
+# Allow other workspaces to use this workspace's outputs
 global_remote_state: true
 
 # TODO
