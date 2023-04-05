@@ -1,5 +1,5 @@
 identifier:        FancyCorp-Demo/tf-workspace-hcp-vault
-#working_directory: "config"
+working_directory: "config"
 
 project: Vault
 
