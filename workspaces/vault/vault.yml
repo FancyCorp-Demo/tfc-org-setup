@@ -1,0 +1,23 @@
+identifier:        FancyCorp-Demo/tf-workspace-hcp-vault
+#working_directory: "cluster"
+
+tags:
+- vault
+- hcp
+- platform:aws
+creds:
+- hcp:contributor
+- tfc
+project: Vault
+
+# Allow other workspaces to use this workspace's state
+global_remote_state: true
+
+# TODO
+# downstream_workspaces
+# - webserver-azure-dev-compute
+# Or maybe this could be computed from the upstream_workspaces on the target workspaces
+
+auto_apply: true
+#auto_trigger: true
+assessments_enabled: true

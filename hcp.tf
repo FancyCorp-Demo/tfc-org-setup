@@ -1,40 +1,46 @@
-# TODO:
-# If workspace asks for HCP creds, add the varset
-# https://app.terraform.io/app/fancycorp/settings/varsets/varset-953YiG2AtndV2D93
-#
-# e.g.
-# creds:
-# - aws
-# - hcp:viewer
 
-
-
-variable "hcp_viewer_varset" {
-  type    = string
-  default = "varset-953YiG2AtndV2D93"
+variable "hcp_varsets" {
+  type = map(string)
+  default = {
+    "hcp:viewer"      = "varset-953YiG2AtndV2D93",
+    "hcp:contributor" = "varset-7BRrWLKfZx6HhfPP",
+  }
 }
 
 
 locals {
-  hcp_viewer_workspaces = {
-    for k, v in local.workspaces : k => v
-    if contains(v.creds, "hcp:viewer")
+  hcp_workspaces = {
+    for k, v in local.workspaces : k => setintersection(
+      tolist(v.creds),
+      ["hcp:viewer", "hcp:contributor"]
+    )
+    if length(
+      setintersection(
+        tolist(v.creds),
+        ["hcp:viewer", "hcp:contributor"]
+      )
+    ) == 1
+    # TODO: ideally we'd throw a validation error if more than one hcp: cred is used here
+  }
+
+  hcp_workspaces_varset = {
+    for k, v in local.hcp_workspaces : k => var.hcp_varsets[one(v)]
   }
 }
 
-resource "tfe_workspace_variable_set" "hcp_viewer" {
-  for_each = local.hcp_viewer_workspaces
+resource "tfe_workspace_variable_set" "hcp" {
+  for_each = local.hcp_workspaces_varset
 
-  variable_set_id = var.hcp_viewer_varset
+  variable_set_id = each.value
   workspace_id    = tfe_workspace.workspace[each.key].id
 }
 
 
 # TODO: Map VarSet to Projects with the TFE provider once that's possible
 
-resource "terracurl_request" "hcp_viewer" {
+resource "terracurl_request" "hcp_viewer_nocode" {
   name = "hcp_viewer"
-  url  = "https://app.terraform.io/api/v2/varsets/${var.hcp_viewer_varset}/relationships/projects"
+  url  = "https://app.terraform.io/api/v2/varsets/${var.hcp_varsets["hcp:viewer"]}/relationships/projects"
 
   method = "POST"
 
@@ -59,3 +65,4 @@ resource "terracurl_request" "hcp_viewer" {
 }
 EOF
 }
+

@@ -1,0 +1,14 @@
+identifier:        FancyCorp-Demo/tf-workspace-hcp-vault
+#working_directory: "config"
+
+tags:
+- vault
+- hcp
+- platform:aws
+project: Vault
+
+# This workspace is safe to delete without a destroy
+force_delete: true
+
+auto_apply: true
+assessments_enabled: true

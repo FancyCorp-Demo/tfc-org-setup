@@ -242,6 +242,7 @@ resource "multispace_run" "destroy_workspaces" {
   # TODO: I don't think we need this anymore. We don'y really use make apply-destroy anymore,
   # and it's no longer a dependency of make destroy. So this for_each probably should just always use
   # local.workspace_names
+  # TODO: We should, however, exclude any force_delete=true workspaces
 
   # TODO: See all of this? This is why we need a "create workspace" submodule
   depends_on = [
@@ -251,7 +252,7 @@ resource "multispace_run" "destroy_workspaces" {
     # Creds
     module.azure-creds,
     module.aws-creds,
-    tfe_workspace_variable_set.hcp_viewer,
+    tfe_workspace_variable_set.hcp,
     tfe_variable.tfc-creds,
 
     tfe_workspace_run_task.tasks,
