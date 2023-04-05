@@ -4,7 +4,7 @@ working_directory: "cluster"
 tags:
 - vault
 - hcp
-- platform:hcp-azure
+- platform:hcp
 creds:
 - hcp:contributor
 project: Vault

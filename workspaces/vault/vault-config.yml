@@ -4,7 +4,7 @@ working_directory: "config"
 tags:
 - vault
 - hcp
-- platform:hcp-azure
+- platform:hcp
 project: Vault
 
 # This workspace is safe to delete without a destroy
