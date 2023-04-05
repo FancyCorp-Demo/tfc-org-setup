@@ -31,3 +31,4 @@ tasks:
   - task: infracost
     enforcement: advisory
 project: Webserver Prod
+assessments_enabled: true

@@ -30,3 +30,4 @@ tasks:
   - task: infracost
     enforcement: advisory
 project: Webserver Dev
+assessments_enabled: true

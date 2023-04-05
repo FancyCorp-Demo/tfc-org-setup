@@ -48,3 +48,6 @@ tasks:
 
 # Whether we should always automatically kick off a run on this workspace after creation
 #auto_trigger: true
+
+# Health Checks and Drift Detection
+#assessments_enabled: true
