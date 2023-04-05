@@ -25,7 +25,7 @@ locals {
     merge(
       {
         # Default values when not specified in the YAML files
-        creds       = "",
+        creds       = [],
         permissions = [],
 
         filename        = filename,
