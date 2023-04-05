@@ -34,4 +34,4 @@ tasks:
     enforcement: advisory
   - task: infracost
     enforcement: advisory
-project: FancyCats Dev
+project: Webserver Dev

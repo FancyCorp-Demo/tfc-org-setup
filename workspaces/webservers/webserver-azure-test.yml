@@ -1,15 +1,15 @@
 identifier:        FancyCorp-Demo/tf-workspace-azure-webserver
 #working_directory: "combined"
-branch:            "main"
+branch:            "test"
 
-production: true
+test: true
 permissions:
-  tf-fancycorp-prod-devs: plan
-  tf-fancycorp-prod-approvers: write
+  tf-fancycorp-devs: plan
+  tf-fancycorp-test-approvers: write
 tags:
 - webserver
 - platform:azure
-- environment:production
+- environment:test
 creds:
 - azure
 - hcp:viewer
@@ -30,4 +30,4 @@ tasks:
     enforcement: advisory
   - task: infracost
     enforcement: advisory
-project: FancyCats Prod
+project: Webserver Test

@@ -17,7 +17,7 @@ tasks:
     enforcement: advisory
   - task: infracost
     enforcement: advisory
-project: FancyCats Dev
+project: Webserver Dev
 
 # Allow other workspaces to use this workspace's 
 global_remote_state: true

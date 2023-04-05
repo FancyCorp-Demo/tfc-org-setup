@@ -1,15 +1,14 @@
 identifier:        FancyCorp-Demo/tf-workspace-azure-webserver
 #working_directory: "combined"
-branch:            "test"
+#branch:            "combined-vs-split"
+branch:            dev
 
-test: true
 permissions:
-  tf-fancycorp-devs: plan
-  tf-fancycorp-test-approvers: write
+  tf-fancycorp-devs: write
 tags:
 - webserver
 - platform:azure
-- environment:test
+- environment:dev
 creds:
 - azure
 - hcp:viewer
@@ -21,7 +20,7 @@ vars:
     value: webserver
     description: Which HCP Packer bucket should we pull our Machine Image from?
   - key: packer_channel
-    value: production
+    value: latest
     description: "Which HCP Packer channel should we use for our Machine Image? Available: production, dev"
 tasks:
   - task: packer
@@ -30,4 +29,4 @@ tasks:
     enforcement: advisory
   - task: infracost
     enforcement: advisory
-project: FancyCats Test
+project: Webserver Dev

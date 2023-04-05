@@ -1,17 +1,14 @@
 # Repository Details
-branch:            test
+branch:            dev
 working_directory: # default unset
 identifier:        FancyCorp-Demo/tf-workspace-aws-webserver
 
-
-test: true
 permissions:
-  tf-fancycorp-devs: plan
-  tf-fancycorp-test-approvers: write
+  tf-fancycorp-devs: write
 tags:
 - webserver
 - platform:aws
-- environment:test
+- environment:dev
 creds:
 - aws
 - hcp:viewer
@@ -23,7 +20,7 @@ vars:
     value: webserver
     description: Which HCP Packer bucket should we pull our AMI from?
   - key: packer_channel
-    value: production
+    value: latest
     description: "Which HCP Packer channel should we use for our AMI? Available: production, dev"
 tasks:
   - task: packer
@@ -32,4 +29,4 @@ tasks:
     enforcement: advisory
   - task: infracost
     enforcement: advisory
-project: FancyCats Test
+project: Webserver Dev
