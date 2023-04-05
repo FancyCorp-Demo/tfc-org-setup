@@ -4,6 +4,7 @@
 # (This might become a submodule in future)
 #
 
+/*
 resource "tfe_team" "manage-workspaces" {
   name         = "Manage Workspaces"
   organization = var.tfe_org
@@ -16,9 +17,20 @@ resource "tfe_team" "manage-workspaces" {
     manage_policies = true
   }
 }
+*/
+
+// TODO: For some reason, while this does give the abiltiy to create variables
+// you cannot read them afterwards...
+// so use the owner team instead (for now)
+
+data "tfe_team" "owners" {
+  name         = "owners"
+  organization = var.tfe_org
+}
 
 resource "tfe_team_token" "manage-workspaces" {
-  team_id = tfe_team.manage-workspaces.id
+  #  team_id = tfe_team.manage-workspaces.id
+  team_id = data.tfe_team.owners.id
 }
 
 
