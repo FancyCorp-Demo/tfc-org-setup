@@ -52,6 +52,11 @@ locals {
     for k, v in local.workspaces : k
     if lookup(v, "auto_trigger", false)
   ])
+
+  workspace_names_trigger_destroy = toset([
+    for k, v in local.workspaces : k
+    if !lookup(v, "force_delete", false)
+  ])
 }
 
 
@@ -234,15 +239,8 @@ resource "multispace_run" "trigger_workspaces" {
 }
 
 resource "multispace_run" "destroy_workspaces" {
-  # If we are destroying, then there should be no multispace_run.destroy_workspaces workspaces
-  #
-  # This allows us to explicitly trigger a destroy by setting the trigger_workspaces_destroy variable
-  # or to destroy everything with a simple terraform destroy
-  for_each = var.trigger_workspaces_destroy ? local.workspace_names_always_trigger : local.workspace_names
-  # TODO: I don't think we need this anymore. We don'y really use make apply-destroy anymore,
-  # and it's no longer a dependency of make destroy. So this for_each probably should just always use
-  # local.workspace_names
-  # TODO: We should, however, exclude any force_delete=true workspaces
+  # trigger destruction on workspaces that aren't marked as Force Delete
+  for_each = local.workspace_names_trigger_destroy
 
   # TODO: See all of this? This is why we need a "create workspace" submodule
   depends_on = [

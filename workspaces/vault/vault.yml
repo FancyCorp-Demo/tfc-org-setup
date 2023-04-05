@@ -4,7 +4,7 @@ identifier:        FancyCorp-Demo/tf-workspace-hcp-vault
 tags:
 - vault
 - hcp
-- platform:aws
+- platform:hcp-azure
 creds:
 - hcp:contributor
 - tfc
