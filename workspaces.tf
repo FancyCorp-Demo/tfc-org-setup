@@ -283,4 +283,10 @@ resource "multispace_run" "destroy_workspaces" {
 
   # Do not retry after first failure
   # retry_attempts = 1
+
+
+  timeouts {
+    # To account for the amount of time it takes to destroy an HCP Vault cluster...
+    delete = "60m"
+  }
 }
