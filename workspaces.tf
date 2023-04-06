@@ -149,6 +149,8 @@ resource "tfe_workspace" "workspace" {
       source_url,
     ]
   }
+
+  terraform_version = "latest"
 }
 
 
