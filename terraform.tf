@@ -3,10 +3,10 @@
 #
 terraform {
   backend "remote" {
-    organization = "hashi_strawb_testing"
+    organization = "fancycorp"
 
     workspaces {
-      name = "demo-tfcb-fancycorp"
+      name = "tfc-landing-zone"
     }
   }
 
