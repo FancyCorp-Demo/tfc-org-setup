@@ -17,5 +17,3 @@ upstream_workspaces:
 - vault
 
 auto_apply: true
-assessments_enabled: true
-
