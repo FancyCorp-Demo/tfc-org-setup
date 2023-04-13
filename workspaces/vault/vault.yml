@@ -14,3 +14,14 @@ global_remote_state: true
 
 auto_apply: true
 #auto_trigger: true
+
+vars:
+  - key: hcp_platform
+    value: aws
+    description: "Which platform should we deploy to in HCP? Valid options: aws, azure"
+  - key: hcp_region
+    value: eu-west-2
+    description: "Which region should we use? Valid options: aws: eu-west-1, eu-west-2; azure: uksouth"
+  - key: hcp_vault_cluster_name
+    value: aws-london
+    description: "What should we call the cluster?"
