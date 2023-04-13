@@ -272,6 +272,8 @@ resource "multispace_run" "destroy_workspaces" {
     tfe_policy_set.public-registry,
   ]
 
+  # TODO: if we can, depend on an Upstream workspace if one exists
+
   organization = var.tfe_org
   workspace    = each.key
 

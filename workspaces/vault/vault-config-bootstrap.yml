@@ -10,9 +10,6 @@ creds:
 - tfc
 project: Vault
 
-# This workspace is safe to delete without a destroy
-force_delete: true
-
 upstream_workspaces:
 - vault
 
