@@ -60,6 +60,10 @@ resource "terracurl_request" "hcp_viewer_nocode" {
     {
       "type": "projects",
       "id": "${tfe_project.projects["AWS No-Code"].id}"
+    },
+    {
+      "type": "projects",
+      "id": "${tfe_project.projects["Azure TF OSS to TFC"].id}"
     }
   ]
 }
