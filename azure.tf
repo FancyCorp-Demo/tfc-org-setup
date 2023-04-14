@@ -86,6 +86,10 @@ resource "terracurl_request" "azure_nocode" {
     {
       "type": "projects",
       "id": "${tfe_project.projects["Azure No-Code"].id}"
+    },
+    {
+      "type": "projects",
+      "id": "${tfe_project.projects["Azure TF OSS to TFC"].id}"
     }
   ]
 }
