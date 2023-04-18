@@ -30,8 +30,8 @@ upstream_workspaces:
 tasks:
   - task: packer
     enforcement: advisory
-  - task: snyk
-    enforcement: advisory
+#  - task: snyk
+#    enforcement: advisory
   - task: infracost
     enforcement: advisory
 project: Webserver Dev

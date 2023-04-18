@@ -13,8 +13,8 @@ creds:
 - azure
 - hcp:viewer
 tasks:
-  - task: snyk
-    enforcement: advisory
+#  - task: snyk
+#    enforcement: advisory
   - task: infracost
     enforcement: advisory
 project: Webserver Dev
