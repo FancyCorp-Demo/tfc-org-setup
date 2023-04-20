@@ -88,5 +88,8 @@ resource "tfe_no_code_module" "private-nocode-modules" {
   for_each = local.private_nocode_modules
 
   registry_module = tfe_registry_module.private-nocode-modules[each.key].id
+
+
+  # TODO: handle variable_options too
 }
 */
