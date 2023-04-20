@@ -76,28 +76,7 @@ resource "tfe_variable" "workspace_tfc_aws_role_arn" {
   variable_set_id = tfe_variable_set.creds.id
 }
 
-# TODO: Map VarSet to Project with the TFE provider once that's possible
-
-resource "terracurl_request" "creds_to_project" {
-  name = "creds_to_project"
-  url  = "https://app.terraform.io/api/v2/varsets/${tfe_variable_set.creds.id}/relationships/projects"
-
-  method = "POST"
-
-  headers = {
-    Authorization = "Bearer ${var.tfc_token}"
-    Content-Type  = "application/vnd.api+json"
-  }
-  response_codes = [204]
-
-  request_body = <<EOF
-{
-  "data": [
-    {
-      "type": "projects",
-      "id": "${var.tfc_project_id}"
-    }
-  ]
-}
-EOF
+resource "tfe_project_variable_set" "creds_to_project" {
+  variable_set_id = tfe_variable_set.creds.id
+  project_id      = var.tfc_project_id
 }

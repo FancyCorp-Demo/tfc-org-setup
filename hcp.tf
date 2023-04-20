@@ -35,42 +35,16 @@ resource "tfe_workspace_variable_set" "hcp" {
   workspace_id    = tfe_workspace.workspace[each.key].id
 }
 
+# TODO: in future, get something in place to iterate over both sets of creds
+resource "tfe_project_variable_set" "hcp_viewer" {
+  variable_set_id = var.hcp_varsets["hcp:viewer"]
 
-# TODO: Map VarSet to Projects with the TFE provider once that's possible
+  for_each = toset([
+    tfe_project.projects["Azure No-Code"].id,
+    tfe_project.projects["AWS No-Code"].id,
+    tfe_project.projects["Azure TF OSS to TFC"].id,
+    tfe_project.projects["AWS TF OSS to TFC"].id,
+  ])
 
-resource "terracurl_request" "hcp_viewer_nocode" {
-  name = "hcp_viewer"
-  url  = "https://app.terraform.io/api/v2/varsets/${var.hcp_varsets["hcp:viewer"]}/relationships/projects"
-
-  method = "POST"
-
-  headers = {
-    Authorization = "Bearer ${local.tfc_token}"
-    Content-Type  = "application/vnd.api+json"
-  }
-  response_codes = [204]
-
-  request_body = <<EOF
-{
-  "data": [
-    {
-      "type": "projects",
-      "id": "${tfe_project.projects["Azure No-Code"].id}"
-    },
-    {
-      "type": "projects",
-      "id": "${tfe_project.projects["AWS No-Code"].id}"
-    },
-    {
-      "type": "projects",
-      "id": "${tfe_project.projects["Azure TF OSS to TFC"].id}"
-    },
-    {
-      "type": "projects",
-      "id": "${tfe_project.projects["AWS TF OSS to TFC"].id}"
-    }
-  ]
+  project_id = each.key
 }
-EOF
-}
-
