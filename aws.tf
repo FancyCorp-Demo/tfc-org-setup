@@ -57,16 +57,13 @@ locals {
 }
 
 module "aws-project-creds" {
-  #source = "hashi-strawb/tfc-dynamic-creds-project/aws"
-  source = "./submodules/project-aws-creds"
+  source  = "hashi-strawb/tfc-dynamic-creds-workspace/aws"
+  version = ">= 0.2.0"
 
   for_each = local.aws_projects
 
   oidc_provider_arn = module.aws-oidc-provider.oidc_provider.arn
 
   tfc_organization_name = var.tfe_org
-  tfc_project_name      = each.key
-  tfc_project_id        = each.value
-
-  tfc_token = local.tfc_token
+  tfc_workspace_project = each.key
 }
