@@ -13,7 +13,7 @@ terraform {
   required_providers {
     tfe = {
       source  = "hashicorp/tfe"
-      version = ">= 0.43.0, < 1.0.0"
+      version = ">= 0.44.0, < 1.0.0"
     }
     doormat = {
       source = "doormat.hashicorp.services/hashicorp-security/doormat"

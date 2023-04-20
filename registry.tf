@@ -63,14 +63,14 @@ resource "tfe_registry_module" "private-modules" {
 
 
 locals {
-  private_nocode_modules = [
-    "FancyCorp-Demo/terraform-aws-webserver-nocode",
-    "FancyCorp-Demo/terraform-azure-webserver-nocode",
-  ]
+  private_nocode_modules = {
+    "FancyCorp-Demo/terraform-aws-webserver-nocode" : {},
+    "FancyCorp-Demo/terraform-azure-webserver-nocode" : {},
+  }
 }
 
 resource "tfe_registry_module" "private-nocode-modules" {
-  for_each = toset(local.private_nocode_modules)
+  for_each = local.private_nocode_modules
 
   vcs_repo {
     display_identifier = each.key
@@ -80,3 +80,13 @@ resource "tfe_registry_module" "private-nocode-modules" {
 
   no_code = true
 }
+
+/*
+# For now, disable this, until https://github.com/hashicorp/terraform-provider-tfe/issues/841 is resolved
+
+resource "tfe_no_code_module" "private-nocode-modules" {
+  for_each = local.private_nocode_modules
+
+  registry_module = tfe_registry_module.private-nocode-modules[each.key].id
+}
+*/
