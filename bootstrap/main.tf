@@ -23,6 +23,8 @@ resource "tfe_workspace" "lz" {
   description = "Create all the other workspaces, modules, config, etc. Everything else in the org."
 
   execution_mode = "local"
+
+  tag_names = ["age-check:ignore"]
 }
 
 
