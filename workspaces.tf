@@ -150,7 +150,11 @@ resource "tfe_workspace" "workspace" {
     ]
   }
 
-  terraform_version = "latest"
+  terraform_version = lookup(
+    each.value,
+    "terraform_version",
+    "latest"
+  )
 }
 
 
