@@ -63,9 +63,9 @@ resource "tfe_project_variable_set" "azure_nocode" {
   variable_set_id = module.azure-varset-creds.varset_id
 
   for_each = toset([
-    tfe_project.projects["Azure No-Code"].id,
-    tfe_project.projects["Azure TF OSS to TFC"].id,
+    "Azure No-Code",
+    "Azure TF OSS to TFC",
   ])
 
-  project_id = each.key
+  project_id = tfe_project.projects[each.key].id
 }

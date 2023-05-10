@@ -31,7 +31,8 @@ locals {
 
 
 module "aws-creds" {
-  source = "hashi-strawb/tfc-dynamic-creds-workspace/aws"
+  source  = "hashi-strawb/tfc-dynamic-creds-workspace/aws"
+  version = ">= 0.3.0"
 
   for_each = local.aws_workspaces
 
@@ -41,6 +42,8 @@ module "aws-creds" {
   tfc_workspace_name    = each.key
   tfc_workspace_id      = tfe_workspace.workspace[each.key].id
   tfc_workspace_project = each.value.project
+
+  cred_type = "workspace"
 }
 
 
@@ -58,12 +61,16 @@ locals {
 
 module "aws-project-creds" {
   source  = "hashi-strawb/tfc-dynamic-creds-workspace/aws"
-  version = ">= 0.2.0"
+  version = ">= 0.4.0"
+  #source = "./submodules/terraform-aws-tfc-dynamic-creds-workspace"
 
   for_each = local.aws_projects
 
   oidc_provider_arn = module.aws-oidc-provider.oidc_provider.arn
 
-  tfc_organization_name = var.tfe_org
-  tfc_workspace_project = each.key
+  tfc_organization_name      = var.tfe_org
+  tfc_workspace_project_name = each.key
+  tfc_workspace_project_id   = each.value
+
+  cred_type = "project"
 }
