@@ -19,4 +19,4 @@ assessments_enabled: true
 
 
 # https://github.com/hashi-strawb/terraform-workspace-age-check/issues/1
-terraform_version: 1.5.0-alpha20230504
+terraform_version: 1.5.0-beta1
