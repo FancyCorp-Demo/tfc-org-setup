@@ -217,6 +217,10 @@ resource "multispace_run" "trigger_workspaces" {
 
     tfe_workspace_run_task.tasks,
 
+    # Any dependencies between workspaces
+    tfe_run_trigger.run_trigger,
+
+    # Modules
     tfe_registry_module.public-modules,
     tfe_registry_module.private-modules,
 
@@ -224,6 +228,8 @@ resource "multispace_run" "trigger_workspaces" {
     tfe_team_access.access,
     tfe_team.team,
 
+    # We definitiely need policies in place before we do any applies
+    # (we don't really need them before destroy)
     tfe_policy_set.all-workspaces,
     tfe_policy_set.test-workspaces,
     tfe_policy_set_parameter.org-test,
@@ -259,21 +265,12 @@ resource "multispace_run" "destroy_workspaces" {
     tfe_workspace_variable_set.hcp,
     tfe_variable.tfc-creds,
 
-    tfe_workspace_run_task.tasks,
+    # Any dependencies between workspaces
+    tfe_run_trigger.run_trigger,
 
+    # Modules
     tfe_registry_module.public-modules,
     tfe_registry_module.private-modules,
-
-    # Not strictly speaking needed... but in the real world it would be
-    tfe_team_access.access,
-    tfe_team.team,
-
-    tfe_policy_set.all-workspaces,
-    tfe_policy_set.test-workspaces,
-    tfe_policy_set_parameter.org-test,
-    tfe_policy_set.prod-workspaces,
-    tfe_policy_set_parameter.org-prod,
-    tfe_policy_set.public-registry,
   ]
 
   # TODO: if we can, depend on an Upstream workspace if one exists
