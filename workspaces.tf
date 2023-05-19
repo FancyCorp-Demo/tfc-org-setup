@@ -231,6 +231,7 @@ resource "multispace_run" "trigger_workspaces" {
     # We definitiely need policies in place before we do any applies
     # (we don't really need them before destroy)
     tfe_policy_set.all-workspaces,
+    tfe_policy_set.public-registry,
     tfe_policy_set.test-workspaces,
     tfe_policy_set_parameter.org-test,
     tfe_policy_set.prod-workspaces,
@@ -275,6 +276,7 @@ resource "multispace_run" "destroy_workspaces" {
     # We definitiely need policies in place before we do any applies
     # we don't really need them before destroy, but leave them here or Policy Evaluation hangs on destroy
     tfe_policy_set.all-workspaces,
+    tfe_policy_set.public-registry,
     tfe_policy_set.test-workspaces,
     tfe_policy_set_parameter.org-test,
     tfe_policy_set.prod-workspaces,
