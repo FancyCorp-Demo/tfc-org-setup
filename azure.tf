@@ -17,7 +17,8 @@ locals {
 module "azure-creds" {
 
   source  = "hashi-strawb/tfc-dynamic-creds-workspace/azure"
-  version = "0.1.0"
+  version = "0.3.0"
+  #source = "./submodules/terraform-azure-tfc-dynamic-creds-workspace"
 
   for_each = local.azure_workspaces
 
@@ -25,6 +26,10 @@ module "azure-creds" {
   tfc_workspace_name    = each.key
   tfc_workspace_id      = tfe_workspace.workspace[each.key].id
   tfc_workspace_project = each.value.project
+
+  # TODO: determine this from the workspace.yml
+  azure_role_definition_name = each.key == "vault-config" ? "Owner" : "Contributor"
+  azuread_graph_permissions  = each.key == "vault-config" ? ["Application.ReadWrite.OwnedBy", "AppRoleAssignment.ReadWrite.All"] : []
 }
 
 

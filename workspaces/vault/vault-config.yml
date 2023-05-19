@@ -16,3 +16,12 @@ assessments_enabled: true
 creds:
 - azure
 - aws
+
+
+# We need to be an owner of the Subscription, so we can manage permissions on newly created things
+azure_role_definition_name: Owner
+
+# We also need some AAD permissions
+azuread_graph_permissions:
+- Application.ReadWrite.OwnedBy
+- AppRoleAssignment.ReadWrite.All
