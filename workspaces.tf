@@ -271,6 +271,14 @@ resource "multispace_run" "destroy_workspaces" {
     # Modules
     tfe_registry_module.public-modules,
     tfe_registry_module.private-modules,
+
+    # We definitiely need policies in place before we do any applies
+    # we don't really need them before destroy, but leave them here or Policy Evaluation hangs on destroy
+    tfe_policy_set.all-workspaces,
+    tfe_policy_set.test-workspaces,
+    tfe_policy_set_parameter.org-test,
+    tfe_policy_set.prod-workspaces,
+    tfe_policy_set_parameter.org-prod,
   ]
 
   # TODO: if we can, depend on an Upstream workspace if one exists
