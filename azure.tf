@@ -27,9 +27,17 @@ module "azure-creds" {
   tfc_workspace_id      = tfe_workspace.workspace[each.key].id
   tfc_workspace_project = each.value.project
 
-  # TODO: determine this from the workspace.yml
-  azure_role_definition_name = each.key == "vault-config" ? "Owner" : "Contributor"
-  azuread_graph_permissions  = each.key == "vault-config" ? ["Application.ReadWrite.OwnedBy", "AppRoleAssignment.ReadWrite.All"] : []
+  # If custom Azure/AzureAD permissions set in workspace.yml, use that...
+  azure_role_definition_name = lookup(
+    local.workspaces[each.key],
+    "azure_role_definition_name",
+    "Contributor",
+  )
+  azuread_graph_permissions = lookup(
+    local.workspaces[each.key],
+    "azuread_graph_permissions",
+    [],
+  )
 }
 
 
