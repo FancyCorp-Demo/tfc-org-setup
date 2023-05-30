@@ -211,7 +211,8 @@ resource "tfe_run_trigger" "run_trigger" {
 
 
 # Now that creds have been pushed, we can trigger a run
-resource "multispace_run" "trigger_workspaces" {
+# This is gonna fail because the syntax is wrong... but it'll force me to do something about it next time I wanna build the org
+resource "tfe_workspace_run" "trigger_workspaces" {
   # If we are triggering a run, there should be some multispace_run.trigger_workspaces workspaces
   for_each = var.trigger_workspaces ? local.workspace_names_sometimes_trigger : local.workspace_names_always_trigger
 
@@ -246,20 +247,18 @@ resource "multispace_run" "trigger_workspaces" {
     tfe_policy_set_parameter.org-prod,
   ]
 
-  organization = var.tfe_org
-  workspace    = each.key
+  workspace_id = tfe_workspace.workspace[each.key].id
 
   # Kick off an apply, but don't wait for it
-  wait_for_apply = false
-  # Do not destroy as part of this resource
-  do_destroy = false
-
-
-  # Do not retry after first failure
-  # retry_attempts = 1
+  apply {
+    manual_confirm = !tfe_workspace.workspace[each.key].auto_apply
+    retry          = false # Only try once
+    wait_for_run   = false # Fire and forget
+  }
 }
 
-resource "multispace_run" "destroy_workspaces" {
+# This is gonna fail because the syntax is wrong... but it'll force me to do something about it next time I wanna build the org
+resource "tfe_workspace_run" "destroy_workspaces" {
   # trigger destruction on workspaces that aren't marked as Force Delete
   for_each = local.workspace_names_trigger_destroy
 
@@ -293,24 +292,18 @@ resource "multispace_run" "destroy_workspaces" {
   ]
 
   # TODO: if we can, depend on an Upstream workspace if one exists
-
-  organization = var.tfe_org
-  workspace    = each.key
+  workspace_id = tfe_workspace.workspace[each.key].id
 
   # Do not actually kick off an Apply, but create the resource so we can Destroy later
-  do_apply = false
+  # (i.e. we're omitting the apply{} block)
 
   # Kick off the destroy, and wait for it to succeed
   # (this is default behaviour, but make it explicit)
-  wait_for_destroy = true
+  destroy {
+    manual_confirm = false # Let TF confirm this itself
 
+    retry = false # Only try once
 
-  # Do not retry after first failure
-  # retry_attempts = 1
-
-
-  timeouts {
-    # To account for the amount of time it takes to destroy an HCP Vault cluster...
-    delete = "60m"
+    wait_for_run = true # Wait until destroy has finished before removing this resource
   }
 }

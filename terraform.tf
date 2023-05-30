@@ -12,8 +12,11 @@ terraform {
 
   required_providers {
     tfe = {
-      source  = "hashicorp/tfe"
-      version = ">= 0.44.0, < 1.0.0"
+      #      source  = "hashicorp/tfe"
+      #      version = ">= 0.44.0, < 1.0.0"
+
+      # ~/.terraform.d/plugins/terraform.local/local/tfe/x.y.z/darwin_amd64
+      source = "terraform.local/local/tfe"
     }
     hcp = {
       source  = "hashicorp/hcp"
@@ -25,16 +28,6 @@ terraform {
     terracurl = {
       source = "devops-rob/terracurl"
       #      version = "0.1.0"
-    }
-
-
-    multispace = {
-      source  = "lucymhdavies/multispace"
-      version = "0.2.0"
-
-      #    # ~/.terraform.d/plugins/terraform.local/local/multispace/0.2.0/darwin_amd64
-      #      source  = "terraform.local/local/multispace"
-      #      version = "~> 0.2.0"
     }
   }
 

@@ -6,5 +6,5 @@
 #   Run Tasks
 #   Team Access
 #   Policy Set Mapping(?)
-#   Multispace Apply
-#   Multispace Destroy
+#   tfe_workspace_run Apply
+#   tfe_workspace_run Destroy
