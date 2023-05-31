@@ -77,19 +77,15 @@ resource "tfe_registry_module" "private-nocode-modules" {
     identifier         = each.key
     oauth_token_id     = var.vcs_oauth_github
   }
-
-  no_code = true
 }
-
-/*
-# For now, disable this, until https://github.com/hashicorp/terraform-provider-tfe/issues/841 is resolved
 
 resource "tfe_no_code_module" "private-nocode-modules" {
   for_each = local.private_nocode_modules
 
   registry_module = tfe_registry_module.private-nocode-modules[each.key].id
 
-
-  # TODO: handle variable_options too
+  # TODO: handle variable_options too... though I've not figured out how I want to do that yet
+  # short term, fill in the map values in private_nocode_modules
+  # medium term, start parsing yaml files for this
+  # long term... see if we can get some file from the repo itself
 }
-*/
