@@ -264,6 +264,7 @@ resource "multispace_run" "destroy_workspaces" {
     module.azure-creds,
     module.aws-creds,
     tfe_workspace_variable_set.hcp,
+    tfe_workspace_variable_set.tfc-creds,
     tfe_variable.tfc-creds,
 
     # Any dependencies between workspaces
