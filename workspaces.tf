@@ -155,6 +155,14 @@ resource "tfe_workspace" "workspace" {
     "terraform_version",
     "latest"
   )
+
+
+  # Default behaviour, trigger plans only when files change in working directory
+  file_triggers_enabled = lookup(
+    each.value,
+    "file_triggers_enabled",
+    true
+  )
 }
 
 

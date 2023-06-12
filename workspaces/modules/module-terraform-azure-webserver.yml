@@ -1,0 +1,23 @@
+# Repository Details
+#branch:            # default main
+working_directory: canary
+identifier:        FancyCorp-Demo/terraform-azure-webserver
+
+tags:
+- platform:azure
+- environment:dev
+creds:
+- azure
+- hcp:viewer
+tasks:
+  - task: packer
+    enforcement: advisory
+project: Module Development
+assessments_enabled: true
+
+# Any change in the repo should trigger a plan
+file_triggers_enabled: false
+
+# No need for human input, and always kick this off
+auto_apply: true
+auto_trigger: true
