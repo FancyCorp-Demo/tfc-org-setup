@@ -11,6 +11,7 @@ data "hcp_vault_secrets_app" "slack_webhook" {
 }
 
 # TODO: pending https://github.com/hashicorp/terraform-provider-tfe/issues/926
+#               https://github.com/hashicorp/terraform-provider-tfe/pull/927
 /*
 resource "tfe_notification_configuration" "slack" {
   for_each = local.workspaces
