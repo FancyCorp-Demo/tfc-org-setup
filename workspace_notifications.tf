@@ -51,7 +51,9 @@ resource "terracurl_request" "health_check_notifications" {
       "triggers": [
         "assessment:check_failure",
         "assessment:drifted",
-        "assessment:failed"
+        "assessment:failed",
+        "run:errored",
+        "run:needs_attention"
       ]
     }
   }
