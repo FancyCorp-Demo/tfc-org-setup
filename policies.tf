@@ -28,6 +28,7 @@ locals {
   ]
 
 }
+# TODO: Replace all of the above with project-mapped policy sets
 
 
 #
