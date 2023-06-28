@@ -14,7 +14,7 @@ project: Vault
 global_remote_state: true
 
 auto_apply: true
-#auto_trigger: true
+auto_trigger: true
 
 # do not trigger drift detection, as the admin token will always cause this to trigger
 assessments_enabled: false
