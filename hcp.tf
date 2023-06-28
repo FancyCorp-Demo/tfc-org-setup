@@ -1,4 +1,6 @@
 
+# TODO: In future, we want to create these with TF
+# (probably in the Bootstrap workspace)
 variable "hcp_varsets" {
   type = map(string)
   default = {
@@ -6,7 +8,6 @@ variable "hcp_varsets" {
     "hcp:contributor" = "varset-7BRrWLKfZx6HhfPP",
   }
 }
-
 
 locals {
   hcp_workspaces = {
