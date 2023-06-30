@@ -6,6 +6,7 @@ identifier:        FancyCorp-Demo/terraform-aws-webserver
 tags:
 - platform:aws
 - environment:dev
+- canary:module:terraform-aws-webserver
 creds:
 - aws
 - hcp:viewer

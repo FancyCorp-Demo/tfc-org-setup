@@ -6,6 +6,7 @@ identifier:        FancyCorp-Demo/terraform-azure-webserver
 tags:
 - platform:azure
 - environment:dev
+- canary:module:terraform-azure-webserver
 creds:
 - azure
 - hcp:viewer
