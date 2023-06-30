@@ -1,5 +1,5 @@
 # Repository Details
-#branch:            # default main
+branch:            dev
 working_directory: canary
 identifier:        FancyCorp-Demo/terraform-aws-webserver
 
