@@ -53,6 +53,17 @@ locals {
     if lookup(v, "auto_trigger", false)
   ])
 
+
+  # TODO: we also need a "do not trigger a delete" flag separate from this
+  # i.e. for workspaces we don't want to force delete, but we also don't want
+  # to trigger destroy runs on
+  # (i.e. those which will be destroyed by a workspace runner)
+  #
+  # practically... we probably don't need this yet, because all tfe_workspace_run resources
+  # are lumped in together, so we don't actually delete any workspaces until after
+  # all workspaces have been destroyed
+  #
+  # but if/when we get around to refactoring this... at that point it will be useful
   workspace_names_trigger_destroy = toset([
     for k, v in local.workspaces : k
     if !lookup(v, "force_delete", false)
@@ -210,10 +221,7 @@ resource "tfe_run_trigger" "run_trigger" {
 #
 
 
-# Now that creds have been pushed, we can trigger a run
-# This is gonna fail because the syntax is wrong... but it'll force me to do something about it next time I wanna build the org
 resource "tfe_workspace_run" "trigger_workspaces" {
-  # If we are triggering a run, there should be some multispace_run.trigger_workspaces workspaces
   for_each = var.trigger_workspaces ? local.workspace_names_sometimes_trigger : local.workspace_names_always_trigger
 
   # TODO: See all of this? This is why we need a "create workspace" submodule
@@ -251,13 +259,15 @@ resource "tfe_workspace_run" "trigger_workspaces" {
 
   # Kick off an apply, but don't wait for it
   apply {
+    # use workspace default setting for apply method
     manual_confirm = !tfe_workspace.workspace[each.key].auto_apply
-    retry          = false # Only try once
-    wait_for_run   = false # Fire and forget
+
+    retry = false # Only try once
+
+    wait_for_run = false # Fire and forget
   }
 }
 
-# This is gonna fail because the syntax is wrong... but it'll force me to do something about it next time I wanna build the org
 resource "tfe_workspace_run" "destroy_workspaces" {
   # trigger destruction on workspaces that aren't marked as Force Delete
   for_each = local.workspace_names_trigger_destroy
@@ -289,9 +299,12 @@ resource "tfe_workspace_run" "destroy_workspaces" {
     tfe_policy_set_parameter.org-test,
     tfe_policy_set.prod-workspaces,
     tfe_policy_set_parameter.org-prod,
+
+    # TODO: Slack Notifications
   ]
 
-  # TODO: if we can, depend on an Upstream workspace if one exists
+  # ideally, we would depend on an Upstream workspace if one exists
+  # (we can't, without introducing circular dependencies)
   workspace_id = tfe_workspace.workspace[each.key].id
 
   # Do not actually kick off an Apply, but create the resource so we can Destroy later
