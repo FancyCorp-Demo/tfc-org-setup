@@ -14,3 +14,10 @@ upstream_workspaces:
 - vault
 
 auto_apply: true
+
+# This workspace does create some resources, in TFC and in Vault
+# but it's safe to delete the workspace without destroying
+#
+# And, in fact, it's a good idea to do so because it regularly
+# fails to destroy depending on ordering
+force_delete: true
