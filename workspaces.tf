@@ -299,8 +299,6 @@ resource "tfe_workspace_run" "destroy_workspaces" {
     tfe_policy_set_parameter.org-test,
     tfe_policy_set.prod-workspaces,
     tfe_policy_set_parameter.org-prod,
-
-    # TODO: Slack Notifications
   ]
 
   # ideally, we would depend on an Upstream workspace if one exists
