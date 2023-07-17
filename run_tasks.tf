@@ -52,3 +52,12 @@ resource "tfe_workspace_run_task" "tasks" {
   task_id           = each.value["task_id"]
   enforcement_level = each.value["enforcement"]
 }
+
+
+
+
+
+
+# TODO: Create HCP Packer Run Task w/ TF
+# https://app.asana.com/0/0/1205072880312484/f
+# https://registry.terraform.io/providers/hashicorp/hcp/latest/docs/guides/packer-run-tasks-with-terraform
