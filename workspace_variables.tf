@@ -8,6 +8,10 @@ locals {
           # Unique ID for set
           id = "${name}/${var.key}"
 
+
+          # TODO: rewrite this overcomplicated batshit with this:
+          # https://developer.hashicorp.com/terraform/language/expressions/type-constraints#optional-object-type-attributes
+          # that'll be much easier to understand
           workspace_id = tfe_workspace.workspace[name].id
           key          = var.key
           value        = var.value
