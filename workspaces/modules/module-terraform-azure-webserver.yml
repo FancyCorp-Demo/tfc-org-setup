@@ -1,5 +1,5 @@
 # Repository Details
-branch:            dev
+branch:            main
 working_directory: canary
 identifier:        FancyCorp-Demo/terraform-azure-webserver
 
