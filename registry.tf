@@ -63,9 +63,56 @@ resource "tfe_registry_module" "private-modules" {
 
 
 locals {
+  # TODO: definitely want to start looking into pulling these from YAML files
   private_nocode_modules = {
-    "FancyCorp-Demo/terraform-aws-webserver-nocode" : {},
-    "FancyCorp-Demo/terraform-azure-webserver-nocode" : {},
+    "FancyCorp-Demo/terraform-aws-webserver-nocode" : {
+      variable_options = [
+        {
+          name    = "packer_bucket_name",
+          type    = "string",
+          options = ["webserver"],
+        },
+        {
+          name    = "packer_channel",
+          type    = "string",
+          options = ["production", "latest"],
+        },
+        {
+          name    = "instance_type",
+          type    = "string",
+          options = ["t3.micro"],
+        },
+        {
+          name    = "aws-region",
+          type    = "string",
+          options = ["eu-west-1", "eu-west-2"],
+        }
+      ]
+    },
+    "FancyCorp-Demo/terraform-azure-webserver-nocode" : {
+      variable_options = [
+        {
+          name    = "packer_bucket_name",
+          type    = "string",
+          options = ["webserver"],
+        },
+        {
+          name    = "packer_channel",
+          type    = "string",
+          options = ["production", "latest"],
+        },
+        {
+          name    = "machine_size",
+          type    = "string",
+          options = ["Standard_B1ls"],
+        },
+        {
+          name    = "location",
+          type    = "string",
+          options = ["UK South"],
+        }
+      ]
+    },
   }
 }
 
@@ -83,6 +130,16 @@ resource "tfe_no_code_module" "private-nocode-modules" {
   for_each = local.private_nocode_modules
 
   registry_module = tfe_registry_module.private-nocode-modules[each.key].id
+
+  dynamic "variable_options" {
+    for_each = lookup(each.value, "variable_options", [])
+
+    content {
+      name    = variable_options.value["name"]
+      type    = variable_options.value["type"]
+      options = variable_options.value["options"]
+    }
+  }
 
   # TODO: handle variable_options too... though I've not figured out how I want to do that yet
   # short term, fill in the map values in private_nocode_modules
