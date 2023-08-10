@@ -1,0 +1,17 @@
+identifier:        FancyCorp-Demo/tf-workspace-hcp-vault
+working_directory: "monitoring"
+
+tags:
+- vault
+- hcp
+- platform:hcp
+creds:
+- hcp:contributor
+- aws
+project: Vault
+
+auto_apply: true
+auto_trigger: true
+
+upstream_workspaces:
+- vault
