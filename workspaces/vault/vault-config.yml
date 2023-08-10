@@ -15,7 +15,6 @@ assessments_enabled: true
 
 creds:
 - azure
-- aws
 
 
 # We need to be an owner of the Subscription, so we can manage permissions on newly created things
