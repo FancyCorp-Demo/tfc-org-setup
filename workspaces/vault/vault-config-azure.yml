@@ -1,5 +1,5 @@
 identifier:        FancyCorp-Demo/tf-workspace-hcp-vault
-working_directory: "config"
+working_directory: "config-azure"
 
 tags:
 - vault
@@ -13,14 +13,8 @@ upstream_workspaces:
 auto_apply: true
 assessments_enabled: true
 
-
-
-
-# TODO: Remove all the below after these resources have been moved to the other workspace
-
 creds:
 - azure
-
 
 # We need to be an owner of the Subscription, so we can manage permissions on newly created things
 azure_role_definition_name: Owner
