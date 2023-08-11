@@ -14,7 +14,9 @@ project: Vault
 global_remote_state: true
 
 auto_apply: true
-auto_trigger: true
+
+# Trigger automatically whenever we create the workspace (or don't)
+auto_trigger: false
 
 # do not trigger drift detection, as the admin token will always cause this to trigger
 assessments_enabled: false
