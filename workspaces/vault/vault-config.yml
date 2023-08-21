@@ -7,25 +7,10 @@ tags:
 - platform:hcp
 project: Vault
 
-upstream_workspaces:
-- vault-config-bootstrap
+# For now, while Run Triggers don't auto-apply, keep this disablked
+# TODO: enable when Run Triggers can auto-apply
+#upstream_workspaces:
+#- vault-config-bootstrap
 
 auto_apply: true
 assessments_enabled: true
-
-
-
-
-# TODO: Remove all the below after these resources have been moved to the other workspace
-
-creds:
-- azure
-
-
-# We need to be an owner of the Subscription, so we can manage permissions on newly created things
-azure_role_definition_name: Owner
-
-# We also need some AAD permissions
-azuread_graph_permissions:
-- Application.ReadWrite.OwnedBy
-- AppRoleAssignment.ReadWrite.All

@@ -10,8 +10,10 @@ creds:
 - tfc
 project: Vault
 
-upstream_workspaces:
-- vault
+# For now, while Run Triggers don't auto-apply, keep this disablked
+# TODO: enable when Run Triggers can auto-apply
+#upstream_workspaces:
+#- vault
 
 auto_apply: true
 

@@ -13,10 +13,10 @@ project: Vault
 # Allow other workspaces to use this workspace's outputs
 global_remote_state: true
 
-auto_apply: true
-
-# Trigger automatically whenever we create the workspace (or don't)
-auto_trigger: false
+# we actually don't want this to auto-apply. sometimes we don't need a Vault
+auto_apply: false
+# still auto-trigger though, because this is the easiest way to conditionally create or not
+auto_trigger: true
 
 # do not trigger drift detection, as the admin token will always cause this to trigger
 assessments_enabled: false
