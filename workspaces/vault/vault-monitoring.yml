@@ -8,6 +8,7 @@ tags:
 creds:
 - hcp:contributor
 - aws
+- tfc
 project: Vault
 
 auto_apply: true
