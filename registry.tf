@@ -65,6 +65,7 @@ resource "tfe_registry_module" "private-modules" {
 locals {
   # TODO: definitely want to start looking into pulling these from YAML files
   private_nocode_modules = {
+
     "FancyCorp-Demo/terraform-aws-webserver-nocode" : {
       variable_options = [
         {
@@ -89,6 +90,7 @@ locals {
         }
       ]
     },
+
     "FancyCorp-Demo/terraform-azure-webserver-nocode" : {
       variable_options = [
         {
@@ -113,6 +115,17 @@ locals {
         }
       ]
     },
+
+    "FancyCorp-Demo/terraform-aws-nocode-s3-static-website" : {
+      variable_options = [
+        {
+          name    = "region",
+          type    = "string",
+          options = ["eu-west-1", "eu-west-2"],
+        },
+      ],
+    },
+
   }
 }
 
