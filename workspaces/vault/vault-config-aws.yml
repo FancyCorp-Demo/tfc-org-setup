@@ -7,11 +7,6 @@ tags:
 - platform:hcp
 project: Vault
 
-# For now, while Run Triggers don't auto-apply, keep this disablked
-# TODO: enable when Run Triggers can auto-apply
-#upstream_workspaces:
-#- vault-config-bootstrap
-
 auto_apply: true
 assessments_enabled: true
 

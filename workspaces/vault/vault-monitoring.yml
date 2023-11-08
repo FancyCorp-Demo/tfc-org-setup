@@ -13,8 +13,3 @@ project: Vault
 
 auto_apply: true
 auto_trigger: true
-
-# For now, while Run Triggers don't auto-apply, keep this disablked
-# TODO: enable when Run Triggers can auto-apply
-#upstream_workspaces:
-#- vault

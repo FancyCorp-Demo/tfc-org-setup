@@ -127,6 +127,14 @@ resource "tfe_workspace" "workspace" {
     false
   )
 
+  # Depends on: https://github.com/hashicorp/terraform-provider-tfe/pull/1123
+  # TODO: Make this conditional (e.g. on this being a downstream workspace)
+  #auto_apply_run_trigger = lookup(
+  #  each.value,
+  #  "auto_apply",
+  #  false
+  #)
+
 
   # get project ID based on name, if set, or default project if not
   project_id = try(

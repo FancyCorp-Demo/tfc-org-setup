@@ -10,11 +10,6 @@ creds:
 - tfc
 project: Vault
 
-# For now, while Run Triggers don't auto-apply, keep this disablked
-# TODO: enable when Run Triggers can auto-apply
-#upstream_workspaces:
-#- vault
-
 auto_apply: true
 
 # This workspace does create some resources, in TFC and in Vault
