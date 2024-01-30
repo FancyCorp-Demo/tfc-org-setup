@@ -41,9 +41,9 @@ resource "tfe_project_variable_set" "hcp_viewer" {
   variable_set_id = var.hcp_varsets["hcp:viewer"]
 
   for_each = toset([
-    "Azure No-Code",
+    #    "Azure No-Code",
     "AWS No-Code",
-    "Azure TF OSS to TFC",
+    #    "Azure TF OSS to TFC",
     "AWS TF OSS to TFC",
   ])
 

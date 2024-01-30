@@ -18,11 +18,11 @@ variable "public_modules" {
       module_provider = "aws",
       name            = "vpc",
     },
-    {
-      namespace       = "Azure",
-      module_provider = "azurerm",
-      name            = "vnet",
-    },
+    #    {
+    #      namespace       = "Azure",
+    #      module_provider = "azurerm",
+    #      name            = "vnet",
+    #    },
   ]
 }
 locals {
@@ -45,7 +45,7 @@ resource "tfe_registry_module" "public-modules" {
 locals {
   private_modules = [
     "FancyCorp-Demo/terraform-aws-webserver",
-    "FancyCorp-Demo/terraform-azure-webserver",
+    #    "FancyCorp-Demo/terraform-azure-webserver",
     "hashi-strawb/terraform-aws-account-numbers",
   ]
 }
@@ -91,30 +91,30 @@ locals {
       ]
     },
 
-    "FancyCorp-Demo/terraform-azure-webserver-nocode" : {
-      variable_options = [
-        {
-          name    = "packer_bucket_name",
-          type    = "string",
-          options = ["webserver"],
-        },
-        {
-          name    = "packer_channel",
-          type    = "string",
-          options = ["production", "latest"],
-        },
-        {
-          name    = "machine_size",
-          type    = "string",
-          options = ["Standard_B1ls"],
-        },
-        {
-          name    = "location",
-          type    = "string",
-          options = ["UK South"],
-        }
-      ]
-    },
+    #    "FancyCorp-Demo/terraform-azure-webserver-nocode" : {
+    #      variable_options = [
+    #        {
+    #          name    = "packer_bucket_name",
+    #          type    = "string",
+    #          options = ["webserver"],
+    #        },
+    #        {
+    #          name    = "packer_channel",
+    #          type    = "string",
+    #          options = ["production", "latest"],
+    #        },
+    #        {
+    #          name    = "machine_size",
+    #          type    = "string",
+    #          options = ["Standard_B1ls"],
+    #        },
+    #        {
+    #          name    = "location",
+    #          type    = "string",
+    #          options = ["UK South"],
+    #        }
+    #      ]
+    #    },
 
     "FancyCorp-Demo/terraform-aws-nocode-s3-static-website" : {
       variable_options = [
