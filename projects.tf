@@ -17,11 +17,8 @@ locals {
   )
 
   other_projects = [
-    "AWS No-Code",
+    "AWS Demos",
     #"Azure No-Code",
-
-    "AWS TF OSS to TFC",
-    #"Azure TF OSS to TFC",
   ]
 
   projects = setunion(

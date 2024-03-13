@@ -42,9 +42,9 @@ resource "tfe_project_variable_set" "hcp_viewer" {
 
   for_each = toset([
     #    "Azure No-Code",
-    "AWS No-Code",
     #    "Azure TF OSS to TFC",
-    "AWS TF OSS to TFC",
+
+    "AWS Demos",
   ])
 
   project_id = tfe_project.projects[each.key].id

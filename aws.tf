@@ -54,8 +54,7 @@ module "aws-creds" {
 
 locals {
   aws_projects = {
-    "AWS No-Code" : tfe_project.projects["AWS No-Code"].id
-    "AWS TF OSS to TFC" : tfe_project.projects["AWS TF OSS to TFC"].id
+    "AWS Demos" : tfe_project.projects["AWS Demos"].id
   }
 }
 
