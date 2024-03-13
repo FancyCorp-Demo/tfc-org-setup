@@ -91,6 +91,14 @@ resource "tfe_policy_set_parameter" "org-test" {
   value         = "[\"${var.tfe_org}\"]"
   policy_set_id = tfe_policy_set.test-workspaces.id
 }
+resource "tfe_project_policy_set" "test-projects" {
+  for_each = toset([
+    tfe_project.projects["AWS Demos"].id
+  ])
+
+  policy_set_id = tfe_policy_set.test-workspaces.id
+  project_id    = each.key
+}
 
 resource "tfe_policy_set" "prod-workspaces" {
   name         = "production-policies"
