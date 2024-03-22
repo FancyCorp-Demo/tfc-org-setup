@@ -1,0 +1,20 @@
+name: Dry Run
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0/12 * * *'
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - id: dryrun
+      uses: hashi-strawb/tfc-ephemeral-workspace-check@v0.1.0
+      with:
+        tfe-token: ${{ secrets.TFE_TOKEN }}
+        config: ephemeral-checker/dryrun.hcl
