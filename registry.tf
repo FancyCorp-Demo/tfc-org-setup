@@ -58,6 +58,7 @@ resource "tfe_registry_module" "private-modules" {
     display_identifier = each.key
     identifier         = each.key
     oauth_token_id     = var.vcs_oauth_github
+    tags               = true
   }
 }
 
@@ -136,6 +137,7 @@ resource "tfe_registry_module" "private-nocode-modules" {
     display_identifier = each.key
     identifier         = each.key
     oauth_token_id     = var.vcs_oauth_github
+    tags               = true
   }
 }
 
