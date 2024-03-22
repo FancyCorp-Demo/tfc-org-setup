@@ -36,3 +36,7 @@ terraform {
 provider "tfe" {
   organization = "fancycorp"
 }
+
+provider "hcp" {
+  project_id = "d6c96d2b-616b-4cb8-b78c-9e17a78c2167"
+}
