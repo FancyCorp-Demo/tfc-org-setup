@@ -1,0 +1,15 @@
+identifier:        FancyCorp-Demo/tf-workspace-hcp-boundary
+working_directory: "cluster"
+
+tags:
+- boundary
+- hcp
+- platform:hcp
+creds:
+- hcp:contributor
+project: Boundary
+
+# we actually don't want this to auto-apply. sometimes we don't need a Boundary
+auto_apply: false
+# still auto-trigger though, because this is the easiest way to conditionally create or not
+auto_trigger: true
