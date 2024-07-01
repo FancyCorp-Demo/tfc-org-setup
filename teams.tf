@@ -53,3 +53,19 @@ resource "tfe_team_access" "access" {
   team_id      = each.value.team
   access       = each.value.access
 }
+
+
+
+
+resource "tfe_team_members" "owners" {
+  team_id = data.tfe_team.owners.id
+  usernames = [
+    # me
+    "hashi_strawb",
+
+    # dunno what these are exactly, but probably a good idea to keep them for now
+    "api-org-fancycorp-RDAUWFrRKP",
+    "api-team_431762",
+    "gh-webhooks-fancycorp-LiHKTQCKAh",
+  ]
+}
