@@ -29,47 +29,63 @@ locals {
   }
 }
 
+resource "aws_iam_role" "org_role" {
+  name = "tfc-${var.tfe_org}"
 
-module "aws-creds" {
-  source  = "hashi-strawb/tfc-dynamic-creds-workspace/aws"
-  version = ">= 0.4.0"
-
-  for_each = local.aws_workspaces
-
-  oidc_provider_arn = module.aws-oidc-provider.oidc_provider.arn
-
-  tfc_organization_name      = var.tfe_org
-  tfc_workspace_name         = each.key
-  tfc_workspace_id           = tfe_workspace.workspace[each.key].id
-  tfc_workspace_project_name = each.value.project
-
-  cred_type = "workspace"
+  assume_role_policy = <<EOF
+{
+ "Version": "2012-10-17",
+ "Statement": [
+   {
+     "Effect": "Allow",
+     "Principal": {
+       "Federated": "${module.aws-oidc-provider.oidc_provider.arn}"
+     },
+     "Action": "sts:AssumeRoleWithWebIdentity",
+     "Condition": {
+       "StringEquals": {
+         "app.terraform.io:aud": "aws.workload.identity"
+       },
+       "StringLike": {
+         "app.terraform.io:sub": "organization:${var.tfe_org}:*"
+       }
+     }
+   }
+ ]
 }
+EOF
 
+  # TODO: this is waaaaay too much access; limit it to just what's needed
+  # TODO: separate policies for Plan and Apply (e.g. readonly and admin)
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/AdministratorAccess"
+  ]
 
-
-// TODO: In future, do this in a workspace within the org
-// Workspace should create the Project, the creds,
-// and should also create a "Delete" resource for any workspaces in the project
-
-locals {
-  aws_projects = {
-    "AWS Demos" : tfe_project.projects["AWS Demos"].id
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
-module "aws-project-creds" {
-  source  = "hashi-strawb/tfc-dynamic-creds-workspace/aws"
-  version = ">= 0.4.0"
-  #source = "./submodules/terraform-aws-tfc-dynamic-creds-workspace"
+resource "tfe_variable" "workspace_enable_aws_provider_auth" {
+  for_each = local.aws_workspaces
 
-  for_each = local.aws_projects
+  workspace_id = tfe_workspace.workspace[each.key].id
 
-  oidc_provider_arn = module.aws-oidc-provider.oidc_provider.arn
+  key      = "TFC_AWS_PROVIDER_AUTH"
+  value    = "true"
+  category = "env"
 
-  tfc_organization_name      = var.tfe_org
-  tfc_workspace_project_name = each.key
-  tfc_workspace_project_id   = each.value
+  description = "Enable the Workload Identity integration for AWS."
+}
 
-  cred_type = "project"
+resource "tfe_variable" "workspace_tfc_aws_role_arn" {
+  for_each = local.aws_workspaces
+
+  workspace_id = tfe_workspace.workspace[each.key].id
+
+  key      = "TFC_AWS_RUN_ROLE_ARN"
+  value    = aws_iam_role.org_role.arn
+  category = "env"
+
+  description = "The AWS role arn runs will use to authenticate."
 }

@@ -238,7 +238,13 @@ resource "tfe_workspace_run" "trigger_workspaces" {
     tfe_variable.test,
 
     #module.azure-creds,
-    module.aws-creds,
+    #module.aws-creds,
+    aws_iam_role.org_role,
+    tfe_variable.workspace_enable_aws_provider_auth,
+    tfe_variable.workspace_tfc_aws_role_arn,
+    tfe_workspace_variable_set.hcp,
+    tfe_workspace_variable_set.tfc-creds,
+    tfe_variable.tfc-creds,
 
     tfe_workspace_run_task.tasks,
 
@@ -287,7 +293,10 @@ resource "tfe_workspace_run" "destroy_workspaces" {
 
     # Creds
     #module.azure-creds,
-    module.aws-creds,
+    #module.aws-creds,
+    aws_iam_role.org_role,
+    tfe_variable.workspace_enable_aws_provider_auth,
+    tfe_variable.workspace_tfc_aws_role_arn,
     tfe_workspace_variable_set.hcp,
     tfe_workspace_variable_set.tfc-creds,
     tfe_variable.tfc-creds,
