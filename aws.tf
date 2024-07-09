@@ -47,7 +47,10 @@ resource "aws_iam_role" "org_role" {
          "app.terraform.io:aud": "aws.workload.identity"
        },
        "StringLike": {
-         "app.terraform.io:sub": "organization:${var.tfe_org}:*"
+         "app.terraform.io:sub": [
+           "organization:${var.tfe_org}:*",
+           "organization:${data.tfe_organization.org.external_id}:*"
+         ]
        }
      }
    }
