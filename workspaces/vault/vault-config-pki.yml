@@ -1,0 +1,15 @@
+identifier:        FancyCorp-Demo/tf-workspace-hcp-vault
+working_directory: "config-pki"
+
+tags:
+- vault
+- hcp
+- platform:hcp
+project: Vault
+
+auto_apply: true
+assessments_enabled: true
+
+#creds:
+#- aws
+
