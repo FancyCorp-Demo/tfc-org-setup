@@ -164,8 +164,14 @@ resource "tfe_workspace" "workspace" {
 
   lifecycle {
     ignore_changes = [
+      # these can only be set on workspace creation
+      # so if they've changed... ignore them
       source_name,
       source_url,
+
+      # if a workspace is set to auto destroy at a specfic time... don't revert that
+      # this can happen if an auto_destroy_duration is set, and we've just applied
+      auto_destroy_at
     ]
   }
 
@@ -182,6 +188,7 @@ resource "tfe_workspace" "workspace" {
     "file_triggers_enabled",
     true
   )
+
 }
 
 
