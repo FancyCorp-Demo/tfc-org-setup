@@ -6,6 +6,8 @@ tags:
 - hcp
 - platform:hcp
 project: Vault
+creds:
+- hcp:contributor
 
 auto_apply: true
 assessments_enabled: true
