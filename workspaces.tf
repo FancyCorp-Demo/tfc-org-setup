@@ -175,6 +175,12 @@ resource "tfe_workspace" "workspace" {
     ]
   }
 
+  auto_destroy_activity_duration = lookup(
+    each.value,
+    "auto_destroy_activity_duration",
+    null
+  )
+
   terraform_version = lookup(
     each.value,
     "terraform_version",

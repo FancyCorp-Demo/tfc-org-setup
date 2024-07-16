@@ -32,3 +32,4 @@ tasks:
     enforcement: advisory
 project: Webserver Prod
 assessments_enabled: true
+auto_destroy_activity_duration: 1h

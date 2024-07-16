@@ -13,3 +13,5 @@ project: Boundary
 auto_apply: false
 # still auto-trigger though, because this is the easiest way to conditionally create or not
 auto_trigger: true
+
+auto_destroy_activity_duration: 1d

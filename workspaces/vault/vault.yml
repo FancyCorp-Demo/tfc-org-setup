@@ -31,3 +31,5 @@ vars:
   - key: hcp_vault_cluster_name
     value: aws-london
     description: "What should we call the cluster?"
+
+auto_destroy_activity_duration: 1d

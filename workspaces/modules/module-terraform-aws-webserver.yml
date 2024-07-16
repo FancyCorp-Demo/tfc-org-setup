@@ -22,3 +22,5 @@ file_triggers_enabled: false
 # No need for human input, and always kick this off
 auto_apply: true
 auto_trigger: true
+
+auto_destroy_activity_duration: 1h

@@ -16,3 +16,6 @@ project: Admin
 auto_apply: true
 auto_trigger: true
 assessments_enabled: true
+
+auto_destroy_activity_duration: 1h
+

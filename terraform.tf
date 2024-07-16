@@ -13,7 +13,7 @@ terraform {
   required_providers {
     tfe = {
       source  = "hashicorp/tfe"
-      version = ">= 0.46.0, < 1.0.0"
+      version = ">= 0.57.0, < 1.0.0"
 
       # ~/.terraform.d/plugins/terraform.local/local/tfe/x.y.z/darwin_amd64
       #source = "terraform.local/local/tfe"
