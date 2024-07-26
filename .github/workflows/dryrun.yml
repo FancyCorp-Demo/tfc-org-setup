@@ -18,3 +18,5 @@ jobs:
       with:
         tfe-token: ${{ secrets.TFE_TOKEN }}
         config: ephemeral-checker/dryrun.hcl
+    - id: heartbeat
+      run: curl ${{ secrets.HEARTBEAT_URL }}
