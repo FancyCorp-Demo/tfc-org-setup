@@ -1,0 +1,16 @@
+identifier:        FancyCorp-Demo/tf-workspace-hvs
+working_directory: ""
+
+tags:
+- vault
+- hcp
+- platform:hcp
+project: Vault Secrets
+
+auto_apply: true
+assessments_enabled: true
+
+creds:
+- aws
+- hcp:contributor
+
