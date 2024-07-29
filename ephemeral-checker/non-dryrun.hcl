@@ -7,6 +7,9 @@ ignored_workspaces = [
   "ws-pZnas4ZbuLMNjwXs", # vault-config-aws
   "ws-3BE3eU1jQASHGXy6", # vault-config-bootstrap
   "ws-1j3ikuCy5a2FfjfN", # vault-config-pki
+
+  # HVS, it's persistent
+  "ws-AavQ1ijtfVgrB23x", # hvs-dynamic-creds
 ]
 
 ignored_projects = [
