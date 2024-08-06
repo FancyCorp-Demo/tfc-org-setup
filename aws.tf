@@ -69,6 +69,8 @@ EOF
   }
 }
 
+// Workspace-level Vars
+
 resource "tfe_variable" "workspace_enable_aws_provider_auth" {
   for_each = local.aws_workspaces
 
@@ -85,6 +87,47 @@ resource "tfe_variable" "workspace_tfc_aws_role_arn" {
   for_each = local.aws_workspaces
 
   workspace_id = tfe_workspace.workspace[each.key].id
+
+  key      = "TFC_AWS_RUN_ROLE_ARN"
+  value    = aws_iam_role.org_role.arn
+  category = "env"
+
+  description = "The AWS role arn runs will use to authenticate."
+}
+
+
+// Project-level vars
+
+locals {
+  aws_projects = {
+    "AWS Demos" : tfe_project.projects["AWS Demos"].id
+  }
+}
+
+resource "tfe_variable_set" "aws-creds" {
+  name = "AWS Dynamic Creds"
+}
+
+resource "tfe_project_variable_set" "aws-creds" {
+  for_each = local.aws_projects
+
+  variable_set_id = tfe_variable_set.aws-creds.id
+  project_id      = each.value
+}
+
+
+resource "tfe_variable" "varset_enable_aws_provider_auth" {
+  variable_set_id = tfe_variable_set.aws-creds.id
+
+  key      = "TFC_AWS_PROVIDER_AUTH"
+  value    = "true"
+  category = "env"
+
+  description = "Enable the Workload Identity integration for AWS."
+}
+
+resource "tfe_variable" "varset_tfc_aws_role_arn" {
+  variable_set_id = tfe_variable_set.aws-creds.id
 
   key      = "TFC_AWS_RUN_ROLE_ARN"
   value    = aws_iam_role.org_role.arn
