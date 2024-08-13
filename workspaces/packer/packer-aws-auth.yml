@@ -8,6 +8,5 @@ creds:
 - hcp:contributor
 project: Packer
 
-auto_apply: true
 auto_trigger: true
 assessments_enabled: true
