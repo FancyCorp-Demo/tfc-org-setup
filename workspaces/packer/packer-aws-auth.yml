@@ -1,0 +1,13 @@
+# Repository Details
+branch:            main
+working_directory: terraform/aws
+identifier:        FancyCorp-Demo/packer-golden-image
+
+creds:
+- aws
+- hcp:contributor
+project: Packer
+
+auto_apply: true
+auto_trigger: true
+assessments_enabled: true
