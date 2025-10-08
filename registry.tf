@@ -63,6 +63,20 @@ resource "tfe_registry_module" "private-modules" {
 }
 
 
+
+
+# Currently broken...
+# ╷
+#│ Error: Missing required argument
+#│
+#│   with tfe_no_code_module.private-nocode-modules,
+#│   on registry.tf line 94, in resource "tfe_no_code_module" "private-nocode-modules":
+#│   94: resource "tfe_no_code_module" "private-nocode-modules" {
+#│
+#│ "variable_options": all of `variable_options,version_pin` must be specified
+#╵
+
+/*
 locals {
   # TODO: definitely want to start looking into pulling these from YAML files
   private_nocode_modules = {
@@ -91,32 +105,6 @@ locals {
         }
       ]
     },
-
-    #    "FancyCorp-Demo/terraform-azure-webserver-nocode" : {
-    #      variable_options = [
-    #        {
-    #          name    = "packer_bucket_name",
-    #          type    = "string",
-    #          options = ["webserver"],
-    #        },
-    #        {
-    #          name    = "packer_channel",
-    #          type    = "string",
-    #          options = ["production", "latest"],
-    #        },
-    #        {
-    #          name    = "machine_size",
-    #          type    = "string",
-    #          options = ["Standard_B1ls"],
-    #        },
-    #        {
-    #          name    = "location",
-    #          type    = "string",
-    #          options = ["UK South"],
-    #        }
-    #      ]
-    #    },
-
     "FancyCorp-Demo/terraform-aws-nocode-s3-static-website" : {
       variable_options = [
         {
@@ -141,6 +129,7 @@ resource "tfe_registry_module" "private-nocode-modules" {
   }
 }
 
+
 resource "tfe_no_code_module" "private-nocode-modules" {
   for_each = local.private_nocode_modules
 
@@ -161,3 +150,4 @@ resource "tfe_no_code_module" "private-nocode-modules" {
   # medium term, start parsing yaml files for this
   # long term... see if we can get some file from the repo itself
 }
+*/
