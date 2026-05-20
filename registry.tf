@@ -76,12 +76,12 @@ resource "tfe_registry_module" "private-modules" {
 #│ "variable_options": all of `variable_options,version_pin` must be specified
 #╵
 
-/*
 locals {
   # TODO: definitely want to start looking into pulling these from YAML files
   private_nocode_modules = {
 
     "FancyCorp-Demo/terraform-aws-webserver-nocode" : {
+      version_pin = "0.4.0"
       variable_options = [
         {
           name    = "packer_bucket_name",
@@ -106,6 +106,7 @@ locals {
       ]
     },
     "FancyCorp-Demo/terraform-aws-nocode-s3-static-website" : {
+      version_pin = "0.7.1"
       variable_options = [
         {
           name    = "region",
@@ -145,9 +146,10 @@ resource "tfe_no_code_module" "private-nocode-modules" {
     }
   }
 
+  version_pin = lookup(each.value, "version_pin", [])
+
   # TODO: handle variable_options too... though I've not figured out how I want to do that yet
   # short term, fill in the map values in private_nocode_modules
   # medium term, start parsing yaml files for this
   # long term... see if we can get some file from the repo itself
 }
-*/
