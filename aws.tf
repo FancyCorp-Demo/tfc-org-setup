@@ -15,6 +15,8 @@ provider "aws" {
       Workspace = terraform.workspace
     }
   }
+
+  region = "eu-west-1"
 }
 
 module "aws-oidc-provider" {
