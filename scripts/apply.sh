@@ -4,4 +4,4 @@ set -e
 # Get AWS creds
 source $(which doors) local sandbox
 
-terraform apply -auto-approve
+terraform apply #-auto-approve
