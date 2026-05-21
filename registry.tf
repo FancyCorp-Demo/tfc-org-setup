@@ -113,6 +113,42 @@ locals {
           type    = "string",
           options = ["eu-west-1", "eu-west-2"],
         },
+        {
+          name    = "env",
+          type    = "string",
+          options = ["TODO-MAKE-OPTIONAL"],
+        },
+        {
+          name    = "prefix",
+          type    = "string",
+          options = ["TODO-MAKE-OPTIONAL"],
+        },
+      ],
+    },
+    "FancyCorp-Demo/terraform-random-nocode" : {
+      version_pin = "0.1.0"
+      variable_options = [
+        {
+          name    = "prefix",
+          type    = "string",
+          options = ["TODO-MAKE-OPTIONAL", "prefix"],
+        },
+
+
+        # TODO: not sure why these two vars aren't being picked up...
+
+        /*
+        {
+          name    = "length",
+          type    = "number",
+          options = ["1", "2", "4", "8", "16"],
+        },
+        {
+          name    = "separator",
+          type    = "string",
+          options = ["-", "_", "/"],
+        },
+*/
       ],
     },
 
