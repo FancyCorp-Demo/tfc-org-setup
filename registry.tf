@@ -116,12 +116,15 @@ locals {
         {
           name    = "env",
           type    = "string",
-          options = ["TODO-MAKE-OPTIONAL"],
+          options = ["dev"],
+          #options = [],
+          # TODO: requires https://github.com/hashicorp/terraform-provider-tfe/pull/2074
         },
         {
           name    = "prefix",
           type    = "string",
-          options = ["TODO-MAKE-OPTIONAL"],
+          options = ["lucytest"],
+          #options = [],
         },
       ],
     },
@@ -136,7 +139,6 @@ locals {
 
 
         # TODO: not sure why these two vars aren't being picked up...
-
         /*
         {
           name    = "length",
@@ -179,6 +181,9 @@ resource "tfe_no_code_module" "private-nocode-modules" {
       name    = variable_options.value["name"]
       type    = variable_options.value["type"]
       options = variable_options.value["options"]
+
+      # TODO: untested, need to see what the provider does
+      #options = try(variable_options.value["options"], null)
     }
   }
 

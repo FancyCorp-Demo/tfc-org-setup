@@ -15,8 +15,9 @@ terraform {
       source  = "hashicorp/tfe"
       version = ">= 0.57.0, < 1.0.0"
 
-      # ~/.terraform.d/plugins/terraform.local/local/tfe/x.y.z/darwin_amd64
       #source = "terraform.local/local/tfe"
+      # To compile, simply run `make` in the provider repo, then move compiled binary to
+      # ~/.terraform.d/plugins/terraform.local/local/tfe/x.y.z/darwin_arm64/
     }
     hcp = {
       source  = "hashicorp/hcp"
