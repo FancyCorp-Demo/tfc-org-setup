@@ -114,32 +114,22 @@ locals {
           options = ["eu-west-1", "eu-west-2"],
         },
         {
-          name    = "env",
-          type    = "string",
-          options = ["dev"],
-          #options = [],
-          # TODO: requires https://github.com/hashicorp/terraform-provider-tfe/pull/2074
+          name = "env",
+          type = "string",
         },
         {
-          name    = "prefix",
-          type    = "string",
-          options = ["lucytest"],
-          #options = [],
+          name = "prefix",
+          type = "string",
         },
       ],
     },
     "FancyCorp-Demo/terraform-random-nocode" : {
-      version_pin = "0.1.0"
+      version_pin = "0.2.0"
       variable_options = [
         {
-          name    = "prefix",
-          type    = "string",
-          options = ["TODO-MAKE-OPTIONAL", "prefix"],
+          name = "prefix",
+          type = "string",
         },
-
-
-        # TODO: not sure why these two vars aren't being picked up...
-        /*
         {
           name    = "length",
           type    = "number",
@@ -150,7 +140,6 @@ locals {
           type    = "string",
           options = ["-", "_", "/"],
         },
-*/
       ],
     },
 
@@ -180,10 +169,7 @@ resource "tfe_no_code_module" "private-nocode-modules" {
     content {
       name    = variable_options.value["name"]
       type    = variable_options.value["type"]
-      options = variable_options.value["options"]
-
-      # TODO: untested, need to see what the provider does
-      #options = try(variable_options.value["options"], null)
+      options = try(variable_options.value["options"], null)
     }
   }
 

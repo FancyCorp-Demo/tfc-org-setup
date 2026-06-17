@@ -13,7 +13,7 @@ terraform {
   required_providers {
     tfe = {
       source  = "hashicorp/tfe"
-      version = ">= 0.57.0, < 1.0.0"
+      version = ">= 0.78.0, < 1.0.0"
 
       #source = "terraform.local/local/tfe"
       # To compile, simply run `make` in the provider repo, then move compiled binary to
